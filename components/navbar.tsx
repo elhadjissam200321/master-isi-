@@ -17,7 +17,7 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ]
 
-export function Navbar() {
+export default function Navbar() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
