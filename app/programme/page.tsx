@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar"
+import Navbar from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { ChevronRight, Clock, Award, BookOpen, Users, GraduationCap, Cpu, Globe, ChevronDown } from "lucide-react"

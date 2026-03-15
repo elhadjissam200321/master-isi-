@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar"
+import Navbar from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { ChevronRight, CheckCircle, AlertCircle, Calendar, FileText, User, Mail, Phone } from "lucide-react"
