@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Merriweather } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { Preloader } from '@/components/preloader'
 import './globals.css'
 
 const inter = Inter({
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${inter.variable} ${merriweather.variable} font-sans antialiased`}>
+        <Preloader />
         {children}
         <Analytics />
       </body>

@@ -142,8 +142,41 @@ export default function RecherchePage() {
         </div>
       </section>
 
-      {/* Axes */}
+      {/* Laboratories */}
       <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Laboratoires</span>
+            <h2 className="font-serif text-3xl font-bold text-foreground mt-2">Nos laboratoires de recherche</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { id: "limiarf", name: "LIMIARF", full: "Laboratoire d'Informatique, Modélisation et IA", director: "Pr. CHIBA Z." },
+              { id: "lrit", name: "LRIT", full: "Laboratoire de Recherche en Informatique et Télécommunications", director: "Pr. RAOUYANE B." },
+              { id: "lmsi", name: "LMSI", full: "Laboratoire de Mathématiques et Systèmes Intelligents", director: "Pr. CHERGUI M." },
+            ].map((lab) => (
+              <Link
+                key={lab.id}
+                href={`/recherche/${lab.id}`}
+                className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/50 transition-all group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <FlaskConical className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-bold text-primary text-lg">{lab.name}</h3>
+                <p className="text-sm text-foreground font-medium mt-1">{lab.full}</p>
+                <p className="text-xs text-muted-foreground mt-2">Directeur : {lab.director}</p>
+                <span className="inline-flex items-center gap-1 text-xs text-primary font-medium mt-4 group-hover:underline">
+                  Voir le laboratoire <ChevronRight className="w-3 h-3" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Axes */}
+      <section className="py-16 bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="text-accent text-sm font-semibold uppercase tracking-widest">Thématiques</span>

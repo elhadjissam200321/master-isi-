@@ -195,10 +195,10 @@ export default function EvenementsPage() {
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     {event.description}
                   </p>
-                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:opacity-90 transition-opacity">
-                    S'inscrire
+                  <Link href={`/evenements/${event.id}`} className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:opacity-90 transition-opacity">
+                    Voir détails
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -239,9 +239,9 @@ export default function EvenementsPage() {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <button className="px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
-                    S'inscrire
-                  </button>
+                  <Link href={`/evenements/${event.id}`} className="px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
+                    Voir détails
+                  </Link>
                 </div>
               </article>
             ))}

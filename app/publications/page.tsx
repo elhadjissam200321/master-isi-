@@ -32,6 +32,7 @@ function PageHero({ title, subtitle, breadcrumb }: { title: string; subtitle: st
 const publications = [
   {
     id: 1,
+    slug: "deep-learning-nlp-2024",
     title: "Deep Learning Approaches for Anomaly Detection in Industrial IoT Systems",
     authors: ["A. ANDALOUSSI", "M. ERRAIS", "K. CHIBA"],
     journal: "IEEE Transactions on Industrial Informatics",
@@ -200,9 +201,11 @@ export default function PublicationsPage() {
                   <span className="text-xs text-muted-foreground">{pub.journal}</span>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-foreground mb-2 hover:text-primary transition-colors cursor-pointer">
-                  {pub.title}
-                </h3>
+                <Link href={`/publications/${pub.slug || pub.id}`}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2 hover:text-primary transition-colors cursor-pointer">
+                    {pub.title}
+                  </h3>
+                </Link>
                 
                 <p className="text-sm text-muted-foreground mb-3">
                   <span className="font-medium">Auteurs :</span> {pub.authors.join(", ")}
