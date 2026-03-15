@@ -39,32 +39,31 @@ const objectives = [
   "Concevoir, déployer et maintenir des systèmes intelligents en production",
 ]
 
-// Modules par semestre
 const semesterModules = {
   s1: {
     name: "Semestre 1",
     description: "Fondamentaux et bases théoriques",
     modules: [
-      { name: "Mathématiques pour l'analyse des données", prof: "Pr. CHERGUI", icon: BarChart, credits: 6 },
-      { name: "Structure des données avancées", prof: "Pr. RAOUAYANE", icon: Code, credits: 6 },
-      { name: "Développement web full stack", prof: "Pr. CHANYOUR", icon: Globe, credits: 6 },
-      { name: "Innovation et Intelligence Artificielle", prof: "Pr. MADRANE", icon: Brain, credits: 6 },
-      { name: "Développement avancé des bases de données", prof: "Pr. DEHBI", icon: Database, credits: 6 },
-      { name: "Programmation Python", prof: "Pr. ELKASMI", icon: Code, credits: 4 },
-      { name: "Anglais scientifique", prof: "FSAC", icon: BookOpen, credits: 2 },
+      { name: "Mathématiques pour l'analyse des données", prof: "Pr. CHERGUI", icon: BarChart },
+      { name: "Structure des données avancées", prof: "Pr. RAOUAYANE", icon: Code },
+      { name: "Développement web full stack", prof: "Pr. CHANYOUR", icon: Globe },
+      { name: "Innovation et Intelligence Artificielle", prof: "Pr. MADRANE", icon: Brain },
+      { name: "Développement avancé des bases de données", prof: "Pr. DEHBI", icon: Database },
+      { name: "Programmation Python", prof: "Pr. ELKASMI", icon: Code },
+      { name: "Anglais scientifique", prof: "FSAC", icon: BookOpen },
     ]
   },
   s2: {
     name: "Semestre 2",
     description: "Approfondissement et technologies avancées",
     modules: [
-      { name: "Sécurité des systèmes d'information", prof: "Pr. FEJTAH", icon: Shield, credits: 6 },
-      { name: "Administration avancée des bases de données", prof: "Pr. DEHBI", icon: Database, credits: 6 },
-      { name: "Méthodologie de recherche scientifique", prof: "Pr. BENABDELLAH", icon: BookOpen, credits: 4 },
-      { name: "Traitement des données massives (Big Data)", prof: "Pr. ANDALOUSSI", icon: BarChart, credits: 6 },
-      { name: "Internet des objets (IoT)", prof: "Pr. ERRAIS", icon: Network, credits: 6 },
-      { name: "Technologie web sémantique", prof: "Pr. CHBIHI", icon: Globe, credits: 4 },
-      { name: "Culture entrepreneuriale", prof: "Intervenant externe", icon: Users, credits: 2 },
+      { name: "Sécurité des systèmes d'information", prof: "Pr. FEJTAH", icon: Shield },
+      { name: "Administration avancée des bases de données", prof: "Pr. DEHBI", icon: Database },
+      { name: "Méthodologie de recherche scientifique", prof: "Pr. BENABDELLAH", icon: BookOpen },
+      { name: "Traitement des données massives (Big Data)", prof: "Pr. ANDALOUSSI", icon: BarChart },
+      { name: "Internet des objets (IoT)", prof: "Pr. ERRAIS", icon: Network },
+      { name: "Technologie web sémantique", prof: "Pr. CHBIHI", icon: Globe },
+      { name: "Culture entrepreneuriale", prof: "Intervenant externe", icon: Users },
     ]
   },
   s3: {
@@ -76,11 +75,11 @@ const semesterModules = {
         name: "Cloud, Réseaux & Système (CRS)",
         color: "bg-blue-600",
         modules: [
-          { name: "SDN & Réseaux de nouvelle génération", prof: "Pr. RAOUYANE", icon: Network, credits: 6 },
-          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
-          { name: "Ethical Hacking", prof: "Pr. FEJTAH", icon: Shield, credits: 6 },
-          { name: "Virtualisation des systèmes & Cloud", prof: "Pr. ERRAIS", icon: Cloud, credits: 6 },
-          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+          { name: "SDN & Réseaux de nouvelle génération", prof: "Pr. RAOUYANE", icon: Network },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud },
+          { name: "Ethical Hacking", prof: "Pr. FEJTAH", icon: Shield },
+          { name: "Virtualisation des systèmes & Cloud", prof: "Pr. ERRAIS", icon: Cloud },
+          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain },
         ]
       },
       {
@@ -88,11 +87,11 @@ const semesterModules = {
         name: "Science des Données (DS)",
         color: "bg-teal-600",
         modules: [
-          { name: "Traitement des données multimédia", prof: "Pr. ANDALOUSSI", icon: Database, credits: 6 },
-          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
-          { name: "Analyse des données dans le Web", prof: "Pr. BAHANI", icon: BarChart, credits: 6 },
-          { name: "Ingénierie des ontologies", prof: "Pr. CHBIHI", icon: Brain, credits: 6 },
-          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+          { name: "Traitement des données multimédia", prof: "Pr. ANDALOUSSI", icon: Database },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud },
+          { name: "Analyse des données dans le Web", prof: "Pr. BAHANI", icon: BarChart },
+          { name: "Ingénierie des ontologies", prof: "Pr. CHBIHI", icon: Brain },
+          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain },
         ]
       },
       {
@@ -100,26 +99,26 @@ const semesterModules = {
         name: "Génie Logiciel (GL)",
         color: "bg-indigo-600",
         modules: [
-          { name: "Développement Mobile", prof: "Pr. KASMI", icon: Cpu, credits: 6 },
-          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
-          { name: "Techniques et outils pour la réalisation des logiciels", prof: "Pr. MADRANE", icon: Code, credits: 6 },
-          { name: "Ingénierie dirigée par les modèles", prof: "Pr. BENABDELLAH", icon: Code, credits: 6 },
-          { name: "Développement J2EE", prof: "Pr. CHBIHI", icon: Globe, credits: 6 },
+          { name: "Développement Mobile", prof: "Pr. KASMI", icon: Cpu },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud },
+          { name: "Techniques et outils pour la réalisation des logiciels", prof: "Pr. MADRANE", icon: Code },
+          { name: "Ingénierie dirigée par les modèles", prof: "Pr. BENABDELLAH", icon: Code },
+          { name: "Développement J2EE", prof: "Pr. CHBIHI", icon: Globe },
         ]
       }
     ],
     commonModules: [
-      { name: "Architecture Microservice", prof: "Pr. OUASSIT", icon: Network, credits: 4 },
-      { name: "IA Agentique", prof: "Pr. SAOUDI", icon: Brain, credits: 4 },
-      { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+      { name: "Architecture Microservice", prof: "Pr. OUASSIT", icon: Network },
+      { name: "IA Agentique", prof: "Pr. SAOUDI", icon: Brain },
+      { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain },
     ]
   },
   s4: {
     name: "Semestre 4",
     description: "Stage et mémoire de fin d'études",
     modules: [
-      { name: "Stage en entreprise (5-6 mois)", prof: "Encadrant académique + professionnel", icon: Users, credits: 20 },
-      { name: "Mémoire de recherche", prof: "Directeur de recherche", icon: BookOpen, credits: 10 },
+      { name: "Stage en entreprise (5-6 mois)", prof: "Encadrant académique + professionnel", icon: Users },
+      { name: "Mémoire de recherche", prof: "Directeur de recherche", icon: BookOpen },
     ]
   }
 }
@@ -252,9 +251,6 @@ export default function ProgrammePage() {
                         <div className="font-medium text-foreground">{mod.name}</div>
                         <div className="text-sm text-muted-foreground">{mod.prof}</div>
                       </div>
-                      <span className="text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary shrink-0">
-                        {mod.credits} ECTS
-                      </span>
                     </div>
                   ))}
                 </div>
@@ -299,9 +295,6 @@ export default function ProgrammePage() {
                             <div className="font-medium text-foreground">{mod.name}</div>
                             <div className="text-sm text-muted-foreground">{mod.prof}</div>
                           </div>
-                          <span className="text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary shrink-0">
-                            {mod.credits} ECTS
-                          </span>
                         </div>
                       ))}
                     </div>
@@ -317,9 +310,6 @@ export default function ProgrammePage() {
                             <div className="font-medium text-foreground">{mod.name}</div>
                             <div className="text-sm text-muted-foreground">{mod.prof}</div>
                           </div>
-                          <span className="text-xs font-semibold px-2 py-1 rounded bg-primary text-white shrink-0">
-                            {mod.credits} ECTS
-                          </span>
                         </div>
                       ))}
                     </div>
