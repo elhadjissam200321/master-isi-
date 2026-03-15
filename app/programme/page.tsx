@@ -3,7 +3,7 @@
 import Navbar from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
-import { ChevronRight, Clock, Award, BookOpen, Users, GraduationCap, Globe } from "lucide-react"
+import { ChevronRight, Clock, Award, BookOpen, Users, GraduationCap, Globe, Cpu, Database, Brain, Network, Code, Shield, Cloud, BarChart } from "lucide-react"
 import { useState } from "react"
 
 function PageHero({ title, subtitle, breadcrumb }: { title: string; subtitle: string; breadcrumb: string }) {
@@ -39,73 +39,96 @@ const objectives = [
   "Concevoir, déployer et maintenir des systèmes intelligents en production",
 ]
 
-// S1 Schedule
-const s1Schedule = [
-  { day: "Lundi", morning: { course: "Mathématiques pour l'analyse des données", prof: "Pr. CHERGUI", room: "Salle G7" }, afternoon: { course: "Structure des données avancées", prof: "Pr. RAOUAYANE", room: "Salle G7" } },
-  { day: "Mardi", morning: { course: "Développement web full stack", prof: "Pr. CHANYOUR", room: "Salle G7" }, afternoon: null },
-  { day: "Mercredi", morning: { course: "Innovation et Intelligence Artificielle", prof: "Pr. MADRANE", room: "Salle G7" }, afternoon: null },
-  { day: "Jeudi", morning: { course: "Développement avancé des bases de données", prof: "Pr. DEHBI", room: "Salle G7" }, afternoon: null },
-  { day: "Vendredi", morning: { course: "Anglais (08h30)", prof: "Salle M9", room: "" }, afternoon: { course: "Programmation Python (jusqu'à 13h)", prof: "Pr. ELKASMI", room: "Salle G7" } },
-]
-
-// S2 Schedule
-const s2Schedule = [
-  { day: "Lundi", morning: { course: "Sécurité des systèmes d'information", prof: "Pr. FEJTAH", room: "Salle 10 – Bâtiment master" }, afternoon: null },
-  { day: "Mardi", morning: { course: "Administration Avancée des bases de données", prof: "Pr. DEHBI", room: "Salle 10 – Bâtiment master" }, afternoon: null },
-  { day: "Mercredi", morning: { course: "Méthodologie de recherche scientifique", prof: "Pr. BENABDELLAH", room: "Salle 10 – Bâtiment master" }, afternoon: null },
-  { day: "Jeudi", morning: { course: "Traitement des données massives", prof: "Pr. ANDALOUSSI", room: "Salle 10 – Bâtiment master" }, afternoon: { course: "Internet des objets", prof: "Pr. ERRAIS", room: "Salle 10 – Bâtiment master" } },
-  { day: "Vendredi", morning: { course: "Technologie web sémantique", prof: "Pr. CHBIHI", room: "Salle 10 – Bâtiment master" }, afternoon: null },
-  { day: "Samedi", morning: { course: "Culture entrepreneuriale et techniques de communication", prof: "Intervenant externe", room: "" }, afternoon: null },
-]
-
-// S3 Options
-const s3Options = {
-  crs: {
-    name: "Cloud, Réseaux & Système (CRS)",
-    color: "bg-blue-600",
-    schedule: [
-      { day: "Lundi", course: "SDN & Réseaux de nouvelle génération", prof: "Pr. RAOUYANE" },
-      { day: "Mercredi", course: "Systèmes répartis", prof: "Pr. KEBIRA" },
-      { day: "Jeudi", course: "Ethical Hacking", prof: "Pr. FEJTAH" },
-      { day: "Jeudi", course: "Apprentissage Automatique (Machine Learning)", prof: "Pr. CHIBA" },
-      { day: "Vendredi", course: "Virtualisation des systèmes & Cloud", prof: "Pr. ERRAIS" },
-      { day: "Commun", course: "Architecture Microservice", prof: "Pr. OUASSIT" },
-      { day: "Commun", course: "IA Agentique", prof: "Pr. SAOUDI" },
+// Modules par semestre
+const semesterModules = {
+  s1: {
+    name: "Semestre 1",
+    description: "Fondamentaux et bases théoriques",
+    modules: [
+      { name: "Mathématiques pour l'analyse des données", prof: "Pr. CHERGUI", icon: BarChart, credits: 6 },
+      { name: "Structure des données avancées", prof: "Pr. RAOUAYANE", icon: Code, credits: 6 },
+      { name: "Développement web full stack", prof: "Pr. CHANYOUR", icon: Globe, credits: 6 },
+      { name: "Innovation et Intelligence Artificielle", prof: "Pr. MADRANE", icon: Brain, credits: 6 },
+      { name: "Développement avancé des bases de données", prof: "Pr. DEHBI", icon: Database, credits: 6 },
+      { name: "Programmation Python", prof: "Pr. ELKASMI", icon: Code, credits: 4 },
+      { name: "Anglais scientifique", prof: "FSAC", icon: BookOpen, credits: 2 },
     ]
   },
-  ds: {
-    name: "Science des Données (DS)",
-    color: "bg-teal-600",
-    schedule: [
-      { day: "Lundi", course: "Traitement des données multimédia", prof: "Pr. ANDALOUSSI" },
-      { day: "Mercredi", course: "Systèmes répartis", prof: "Pr. KEBIRA" },
-      { day: "Mercredi", course: "Analyse des données dans le Web", prof: "Pr. BAHANI" },
-      { day: "Jeudi", course: "Apprentissage Automatique (Machine Learning)", prof: "Pr. CHIBA" },
-      { day: "Vendredi", course: "Ingénierie des ontologies", prof: "Pr. CHBIHI" },
-      { day: "Commun", course: "Architecture Microservice", prof: "Pr. OUASSIT" },
-      { day: "Commun", course: "IA Agentique", prof: "Pr. SAOUDI" },
+  s2: {
+    name: "Semestre 2",
+    description: "Approfondissement et technologies avancées",
+    modules: [
+      { name: "Sécurité des systèmes d'information", prof: "Pr. FEJTAH", icon: Shield, credits: 6 },
+      { name: "Administration avancée des bases de données", prof: "Pr. DEHBI", icon: Database, credits: 6 },
+      { name: "Méthodologie de recherche scientifique", prof: "Pr. BENABDELLAH", icon: BookOpen, credits: 4 },
+      { name: "Traitement des données massives (Big Data)", prof: "Pr. ANDALOUSSI", icon: BarChart, credits: 6 },
+      { name: "Internet des objets (IoT)", prof: "Pr. ERRAIS", icon: Network, credits: 6 },
+      { name: "Technologie web sémantique", prof: "Pr. CHBIHI", icon: Globe, credits: 4 },
+      { name: "Culture entrepreneuriale", prof: "Intervenant externe", icon: Users, credits: 2 },
     ]
   },
-  gl: {
-    name: "Génie Logiciel (GL)",
-    color: "bg-indigo-600",
-    schedule: [
-      { day: "Mercredi", course: "Systèmes répartis", prof: "Pr. KEBIRA" },
-      { day: "Mercredi", course: "Développement Mobile (13h-14h30)", prof: "Pr. KASMI" },
-      { day: "Jeudi", course: "Technique et outil pour la réalisation des logiciels", prof: "Pr. MADRANE" },
-      { day: "Jeudi", course: "Apprentissage Automatique (Machine Learning)", prof: "Pr. CHIBA" },
-      { day: "Vendredi", course: "Ingénierie dirigée par les modèles", prof: "Pr. BENABDELLAH" },
-      { day: "Vendredi", course: "Développement J2EE (13h-14h30)", prof: "Pr. CHBIHI" },
-      { day: "Commun", course: "Architecture Microservice", prof: "Pr. OUASSIT" },
-      { day: "Commun", course: "IA Agentique", prof: "Pr. SAOUDI" },
+  s3: {
+    name: "Semestre 3",
+    description: "Spécialisation (3 parcours au choix)",
+    options: [
+      {
+        key: "crs",
+        name: "Cloud, Réseaux & Système (CRS)",
+        color: "bg-blue-600",
+        modules: [
+          { name: "SDN & Réseaux de nouvelle génération", prof: "Pr. RAOUYANE", icon: Network, credits: 6 },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
+          { name: "Ethical Hacking", prof: "Pr. FEJTAH", icon: Shield, credits: 6 },
+          { name: "Virtualisation des systèmes & Cloud", prof: "Pr. ERRAIS", icon: Cloud, credits: 6 },
+          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+        ]
+      },
+      {
+        key: "ds",
+        name: "Science des Données (DS)",
+        color: "bg-teal-600",
+        modules: [
+          { name: "Traitement des données multimédia", prof: "Pr. ANDALOUSSI", icon: Database, credits: 6 },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
+          { name: "Analyse des données dans le Web", prof: "Pr. BAHANI", icon: BarChart, credits: 6 },
+          { name: "Ingénierie des ontologies", prof: "Pr. CHBIHI", icon: Brain, credits: 6 },
+          { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+        ]
+      },
+      {
+        key: "gl",
+        name: "Génie Logiciel (GL)",
+        color: "bg-indigo-600",
+        modules: [
+          { name: "Développement Mobile", prof: "Pr. KASMI", icon: Cpu, credits: 6 },
+          { name: "Systèmes répartis", prof: "Pr. KEBIRA", icon: Cloud, credits: 6 },
+          { name: "Techniques et outils pour la réalisation des logiciels", prof: "Pr. MADRANE", icon: Code, credits: 6 },
+          { name: "Ingénierie dirigée par les modèles", prof: "Pr. BENABDELLAH", icon: Code, credits: 6 },
+          { name: "Développement J2EE", prof: "Pr. CHBIHI", icon: Globe, credits: 6 },
+        ]
+      }
+    ],
+    commonModules: [
+      { name: "Architecture Microservice", prof: "Pr. OUASSIT", icon: Network, credits: 4 },
+      { name: "IA Agentique", prof: "Pr. SAOUDI", icon: Brain, credits: 4 },
+      { name: "Apprentissage Automatique (ML)", prof: "Pr. CHIBA", icon: Brain, credits: 6 },
+    ]
+  },
+  s4: {
+    name: "Semestre 4",
+    description: "Stage et mémoire de fin d'études",
+    modules: [
+      { name: "Stage en entreprise (5-6 mois)", prof: "Encadrant académique + professionnel", icon: Users, credits: 20 },
+      { name: "Mémoire de recherche", prof: "Directeur de recherche", icon: BookOpen, credits: 10 },
     ]
   }
 }
 
-type OptionKey = keyof typeof s3Options
+type SemesterKey = "s1" | "s2" | "s3" | "s4"
 
 export default function ProgrammePage() {
-  const [selectedOption, setSelectedOption] = useState<OptionKey>("ds")
+  const [selectedSemester, setSelectedSemester] = useState<SemesterKey>("s1")
+  const [selectedOption, setSelectedOption] = useState("ds")
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -182,169 +205,148 @@ export default function ProgrammePage() {
         </div>
       </section>
 
-      {/* S1 Schedule */}
+      {/* Modules Section */}
       <section className="py-16 bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <span className="inline-block bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full mb-3">Semestre 1</span>
-            <h2 className="font-serif text-3xl font-bold text-foreground">Emploi du Temps S1 – 2025/2026</h2>
-            <p className="text-muted-foreground mt-2">Coordinateur : Pr. ERRAIS | Début : 05/11/2025</p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full bg-card rounded-lg border border-border overflow-hidden">
-              <thead className="bg-primary text-white">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Jour</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Matin (09h00 - 11h45)</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Après-midi (12h45 - 16h00)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {s1Schedule.map((row, i) => (
-                  <tr key={i} className="hover:bg-secondary/50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">{row.day}</td>
-                    <td className="px-4 py-3">
-                      {row.morning ? (
-                        <div>
-                          <div className="font-medium text-foreground text-sm">{row.morning.course}</div>
-                          <div className="text-xs text-muted-foreground">{row.morning.prof} {row.morning.room && `• ${row.morning.room}`}</div>
-                        </div>
-                      ) : <span className="text-muted-foreground text-sm">—</span>}
-                    </td>
-                    <td className="px-4 py-3">
-                      {row.afternoon ? (
-                        <div>
-                          <div className="font-medium text-foreground text-sm">{row.afternoon.course}</div>
-                          <div className="text-xs text-muted-foreground">{row.afternoon.prof} {row.afternoon.room && `• ${row.afternoon.room}`}</div>
-                        </div>
-                      ) : <span className="text-muted-foreground text-sm">—</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* S2 Schedule */}
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="inline-block bg-accent text-white text-xs font-bold px-4 py-1.5 rounded-full mb-3">Semestre 2</span>
-            <h2 className="font-serif text-3xl font-bold text-foreground">Emploi du Temps S2 – 2025/2026</h2>
-            <p className="text-muted-foreground mt-2">Salle 10 – Bâtiment Master</p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full bg-card rounded-lg border border-border overflow-hidden">
-              <thead className="bg-accent text-white">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Jour</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Matin</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">Après-midi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {s2Schedule.map((row, i) => (
-                  <tr key={i} className="hover:bg-secondary/50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">{row.day}</td>
-                    <td className="px-4 py-3">
-                      {row.morning ? (
-                        <div>
-                          <div className="font-medium text-foreground text-sm">{row.morning.course}</div>
-                          <div className="text-xs text-muted-foreground">{row.morning.prof} {row.morning.room && `• ${row.morning.room}`}</div>
-                        </div>
-                      ) : <span className="text-muted-foreground text-sm">—</span>}
-                    </td>
-                    <td className="px-4 py-3">
-                      {row.afternoon ? (
-                        <div>
-                          <div className="font-medium text-foreground text-sm">{row.afternoon.course}</div>
-                          <div className="text-xs text-muted-foreground">{row.afternoon.prof} {row.afternoon.room && `• ${row.afternoon.room}`}</div>
-                        </div>
-                      ) : <span className="text-muted-foreground text-sm">—</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* S3 Options */}
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="inline-block bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full mb-3">Semestre 3</span>
-            <h2 className="font-serif text-3xl font-bold text-foreground">Spécialisations S3 – 2025/2026</h2>
-            <p className="text-muted-foreground mt-2">Choisissez votre parcours de spécialisation</p>
+            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Structure du programme</span>
+            <h2 className="font-serif text-3xl font-bold text-foreground mt-2">Modules par semestre</h2>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Découvrez les modules enseignés durant les 4 semestres du Master ISI</p>
           </div>
 
-          {/* Option Tabs */}
+          {/* Semester Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {(Object.keys(s3Options) as OptionKey[]).map((key) => (
-              <button
-                key={key}
-                onClick={() => setSelectedOption(key)}
-                className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${
-                  selectedOption === key
-                    ? `${s3Options[key].color} text-white shadow-lg`
-                    : "bg-card border border-border text-foreground hover:bg-secondary"
-                }`}
-              >
-                {s3Options[key].name}
-              </button>
-            ))}
+            {(["s1", "s2", "s3", "s4"] as SemesterKey[]).map((key) => {
+              const sem = key === "s3" ? semesterModules.s3 : semesterModules[key]
+              return (
+                <button
+                  key={key}
+                  onClick={() => setSelectedSemester(key)}
+                  className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${
+                    selectedSemester === key
+                      ? "bg-primary text-white shadow-lg"
+                      : "bg-card border border-border text-foreground hover:bg-background"
+                  }`}
+                >
+                  {sem.name}
+                </button>
+              )
+            })}
           </div>
 
-          {/* Selected Option Schedule */}
-          <div className="bg-card rounded-xl border border-border overflow-hidden">
-            <div className={`${s3Options[selectedOption].color} px-6 py-4`}>
-              <h3 className="text-xl font-bold text-white">{s3Options[selectedOption].name}</h3>
+          {/* Selected Semester Content */}
+          {selectedSemester !== "s3" ? (
+            <div className="bg-card rounded-xl border border-border overflow-hidden">
+              <div className="bg-primary px-6 py-4">
+                <h3 className="text-xl font-bold text-white">{semesterModules[selectedSemester].name}</h3>
+                <p className="text-white/70 text-sm">{semesterModules[selectedSemester].description}</p>
+              </div>
+              <div className="p-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  {semesterModules[selectedSemester].modules.map((mod, i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-secondary border border-border">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                        <mod.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-foreground">{mod.name}</div>
+                        <div className="text-sm text-muted-foreground">{mod.prof}</div>
+                      </div>
+                      <span className="text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary shrink-0">
+                        {mod.credits} ECTS
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="p-6">
-              <div className="grid gap-3">
-                {s3Options[selectedOption].schedule.map((item, i) => (
-                  <div 
-                    key={i} 
-                    className={`flex items-center gap-4 p-4 rounded-lg ${
-                      item.day === "Commun" ? "bg-primary/10 border border-primary/20" : "bg-secondary"
+          ) : (
+            /* S3 with Options */
+            <div className="space-y-6">
+              {/* Option Tabs */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {semesterModules.s3.options.map((opt) => (
+                  <button
+                    key={opt.key}
+                    onClick={() => setSelectedOption(opt.key)}
+                    className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${
+                      selectedOption === opt.key
+                        ? `${opt.color} text-white shadow-lg`
+                        : "bg-card border border-border text-foreground hover:bg-background"
                     }`}
                   >
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full shrink-0 ${
-                      item.day === "Commun" ? "bg-primary text-white" : "bg-muted text-muted-foreground"
-                    }`}>
-                      {item.day}
-                    </span>
-                    <div className="flex-1">
-                      <div className="font-medium text-foreground">{item.course}</div>
-                      <div className="text-sm text-muted-foreground">{item.prof}</div>
+                    {opt.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Selected Option Modules */}
+              {semesterModules.s3.options.filter(o => o.key === selectedOption).map((opt) => (
+                <div key={opt.key} className="bg-card rounded-xl border border-border overflow-hidden">
+                  <div className={`${opt.color} px-6 py-4`}>
+                    <h3 className="text-xl font-bold text-white">{opt.name}</h3>
+                    <p className="text-white/70 text-sm">Modules de spécialisation</p>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Modules spécialisés</h4>
+                    <div className="grid md:grid-cols-2 gap-4 mb-6">
+                      {opt.modules.map((mod, i) => (
+                        <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-secondary border border-border">
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <mod.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">{mod.name}</div>
+                            <div className="text-sm text-muted-foreground">{mod.prof}</div>
+                          </div>
+                          <span className="text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary shrink-0">
+                            {mod.credits} ECTS
+                          </span>
+                        </div>
+                      ))}
                     </div>
+
+                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Modules communs (toutes options)</h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {semesterModules.s3.commonModules.map((mod, i) => (
+                        <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
+                            <mod.icon className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">{mod.name}</div>
+                            <div className="text-sm text-muted-foreground">{mod.prof}</div>
+                          </div>
+                          <span className="text-xs font-semibold px-2 py-1 rounded bg-primary text-white shrink-0">
+                            {mod.credits} ECTS
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* All Options Overview */}
+              <div className="grid md:grid-cols-3 gap-6 mt-8">
+                {semesterModules.s3.options.map((opt) => (
+                  <div 
+                    key={opt.key} 
+                    className={`rounded-xl border-2 p-6 transition-all cursor-pointer ${
+                      selectedOption === opt.key ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50"
+                    }`}
+                    onClick={() => setSelectedOption(opt.key)}
+                  >
+                    <div className={`w-3 h-3 rounded-full ${opt.color} mb-3`} />
+                    <h4 className="font-serif font-bold text-foreground mb-2">{opt.name}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {opt.modules.length} cours spécialisés + modules communs
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* All Options Overview */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {(Object.entries(s3Options) as [OptionKey, typeof s3Options[OptionKey]][]).map(([key, option]) => (
-              <div 
-                key={key} 
-                className={`rounded-xl border-2 p-6 transition-all cursor-pointer ${
-                  selectedOption === key ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50"
-                }`}
-                onClick={() => setSelectedOption(key)}
-              >
-                <div className={`w-3 h-3 rounded-full ${option.color} mb-3`} />
-                <h4 className="font-serif font-bold text-foreground mb-2">{option.name}</h4>
-                <p className="text-sm text-muted-foreground">
-                  {option.schedule.length - 2} cours spécialisés + 2 modules communs
-                </p>
-              </div>
-            ))}
-          </div>
+          )}
         </div>
       </section>
 
@@ -363,34 +365,50 @@ export default function ProgrammePage() {
                   {[
                     "Stage en entreprise (5-6 mois)",
                     "Projet de recherche encadré",
-                    "Rédaction du mémoire",
-                    "Soutenance devant jury"
+                    "Rédaction du mémoire de fin d'études",
+                    "Soutenance devant un jury mixte",
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="w-full md:w-64 bg-secondary rounded-lg p-6 text-center">
-                <GraduationCap className="w-12 h-12 text-primary mx-auto mb-3" />
-                <div className="font-serif text-2xl font-bold text-foreground mb-1">120</div>
-                <div className="text-sm text-muted-foreground">Crédits ECTS</div>
+              <div className="flex items-center justify-center w-full md:w-48 h-48 bg-primary/10 rounded-xl">
+                <GraduationCap className="w-20 h-20 text-primary" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="text-center py-10 bg-secondary">
-        <Link
-          href="/cours"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm"
-        >
-          Voir le détail des cours <ChevronRight className="w-4 h-4" />
-        </Link>
-      </div>
+      {/* CTA */}
+      <section className="bg-primary py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-serif text-3xl font-bold text-white mb-4 text-balance">
+            Prêt à rejoindre le Master ISI ?
+          </h2>
+          <p className="text-white/70 mb-8 max-w-xl mx-auto leading-relaxed">
+            Consultez les conditions d'admission et déposez votre candidature pour la prochaine rentrée universitaire.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/admission"
+              className="bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2"
+            >
+              Voir les conditions d'admission
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/contact"
+              className="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              Nous contacter
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

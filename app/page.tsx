@@ -277,7 +277,7 @@ export default function HomePage() {
               <span className="text-accent text-sm font-semibold uppercase tracking-widest">Actualités</span>
               <h2 className="font-serif text-3xl font-bold text-foreground mt-2">Dernières nouvelles</h2>
             </div>
-            <Link href="/recherche" className="text-sm text-primary font-medium hover:underline flex items-center gap-1">
+            <Link href="/actualites" className="text-sm text-primary font-medium hover:underline flex items-center gap-1">
               Toutes les actus <ChevronRight className="w-4 h-4" />
             </Link>
           </div>

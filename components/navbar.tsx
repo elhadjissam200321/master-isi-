@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils"
 const navLinks = [
   { href: "/", label: "Accueil" },
   { href: "/programme", label: "Programme" },
-  { href: "/cours", label: "Cours" },
-  { href: "/admission", label: "Admission" },
+  { href: "/actualites", label: "Actualités" },
+  { href: "/evenements", label: "Événements" },
   { href: "/recherche", label: "Recherche" },
+  { href: "/publications", label: "Publications" },
   { href: "/enseignants", label: "Enseignants" },
   { href: "/alumni", label: "Alumni" },
   { href: "/contact", label: "Contact" },
