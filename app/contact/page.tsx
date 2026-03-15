@@ -96,62 +96,52 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Contact Form Section */}
+            {/* Interactive Google Maps Section */}
             <div className="bg-secondary rounded-lg p-8 md:p-12 border border-border">
-              <h2 className="text-3xl font-serif font-bold text-foreground mb-2">Envoyez-nous un Message</h2>
+              <h2 className="text-3xl font-serif font-bold text-foreground mb-2">Notre Localisation</h2>
               <p className="text-muted-foreground mb-8">
-                Remplissez le formulaire ci-dessous et nous vous répondrons dans les meilleurs délais.
+                Retrouvez-nous sur le campus de la Faculté des Sciences Aïn Chock - Km 8 Route d'El Jadida, Casablanca.
               </p>
 
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Nom Complet</label>
-                    <input
-                      type="text"
-                      placeholder="Votre nom"
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">E-mail</label>
-                    <input
-                      type="email"
-                      placeholder="votre.email@example.com"
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      required
-                    />
-                  </div>
-                </div>
+              <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-border shadow-sm">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.0861686867!2d-7.656506!3d33.545423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d2e9cde00001%3A0xe46d32e8a2e1c3c9!2sFacult%C3%A9%20des%20Sciences%20A%C3%AFn%20Chock!5e0!3m2!1sfr!2sma!4v1699999999999!5m2!1sfr!2sma"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Localisation FSAC - Faculté des Sciences Aïn Chock"
+                  className="w-full h-full"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Sujet</label>
-                  <input
-                    type="text"
-                    placeholder="Sujet de votre message"
-                    className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-                  <textarea
-                    placeholder="Votre message..."
-                    rows={6}
-                    className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full md:w-auto px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-blue-mid transition-colors"
+              <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                <a
+                  href="https://www.google.com/maps?ll=33.545423,-7.656506&z=15&t=m&hl=fr&gl=MA&mapclient=embed&cid=16459033609919154121"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
                 >
-                  Envoyer le Message
-                </button>
-              </form>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Ouvrir dans Google Maps
+                </a>
+                <a
+                  href="https://www.google.com/maps/dir//Facult%C3%A9+des+Sciences+A%C3%AFn+Chock,+Casablanca,+Morocco"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-card border border-border text-foreground rounded-lg font-medium hover:bg-secondary transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  Obtenir l'itinéraire
+                </a>
+              </div>
             </div>
 
             {/* Hours Section */}
