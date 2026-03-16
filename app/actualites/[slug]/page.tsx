@@ -2,52 +2,12 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ArrowLeft, Calendar, User, Tag, Share2, Facebook, Twitter, Linkedin, Clock } from "lucide-react"
+import { ArrowLeft, Calendar, User, Eye, Clock } from "lucide-react"
+import { ShareButtons } from "@/components/share-buttons"
+import { incrementViews } from "@/lib/views"
+import { articles } from "@/data/articles"
 
-// Sample article data - in production, this would come from a CMS or database
-const articles = {
-  "conference-ia-2025": {
-    title: "Conférence Internationale sur l'IA à la FSAC",
-    excerpt: "La FSAC accueille des experts mondiaux de l'Intelligence Artificielle pour une conférence exceptionnelle.",
-    content: `
-      <p>La Faculté des Sciences Aïn Chock a eu l'honneur d'accueillir la première édition de la Conférence Internationale sur l'Intelligence Artificielle, réunissant plus de 200 participants venus du monde entier.</p>
-      
-      <h2>Un événement d'envergure internationale</h2>
-      <p>Cette conférence a permis de rassembler des chercheurs, industriels et étudiants autour des dernières avancées en matière d'IA. Les thématiques abordées incluaient le Machine Learning, le Deep Learning, le traitement du langage naturel et la vision par ordinateur.</p>
-      
-      <h2>Des intervenants de renommée mondiale</h2>
-      <p>Parmi les intervenants, nous avons eu le privilège d'accueillir des professeurs des plus grandes universités mondiales ainsi que des représentants d'entreprises leaders dans le domaine de l'IA.</p>
-      
-      <blockquote>"Cette conférence marque une étape importante dans le positionnement de la FSAC comme acteur majeur de la recherche en IA au niveau international." - Pr. CHIBA</blockquote>
-      
-      <h2>Retombées pour le Master ISI</h2>
-      <p>Les étudiants du Master ISI ont eu l'opportunité de présenter leurs travaux de recherche et d'échanger avec des experts du domaine, ouvrant ainsi des perspectives de collaboration et de stages.</p>
-    `,
-    category: "Recherche",
-    date: "15 Mars 2025",
-    readTime: "5 min",
-    author: "Pr. CHIBA",
-    image: "/images/hero-neural.jpg",
-  },
-  "partenariat-entreprise": {
-    title: "Nouveau Partenariat avec les Entreprises Tech",
-    excerpt: "Le Master ISI renforce ses liens avec le monde professionnel à travers de nouveaux partenariats stratégiques.",
-    content: `
-      <p>Dans le cadre de sa politique d'ouverture sur le monde professionnel, le Master ISI vient de signer plusieurs conventions de partenariat avec des entreprises leaders dans le domaine du numérique.</p>
-      
-      <h2>Des partenaires de premier plan</h2>
-      <p>Ces accords concernent notamment des entreprises spécialisées en développement logiciel, en data science et en intelligence artificielle, offrant ainsi de nouvelles opportunités pour nos étudiants.</p>
-      
-      <h2>Avantages pour les étudiants</h2>
-      <p>Ces partenariats permettront aux étudiants de bénéficier de stages en entreprise, d'interventions de professionnels et de projets tutorés en lien direct avec les besoins du marché.</p>
-    `,
-    category: "Partenariat",
-    date: "10 Mars 2025",
-    readTime: "3 min",
-    author: "Administration ISI",
-    image: "/images/hero-neural.jpg",
-  },
-}
+// Data is now imported from @/data/articles
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -57,121 +17,144 @@ export async function generateStaticParams() {
   return Object.keys(articles).map((slug) => ({ slug }))
 }
 
-export default async function ArticleDetailPage({ params }: Props) {
+export default async function ArticleDetail({ params }: Props) {
   const { slug } = await params
   const article = articles[slug as keyof typeof articles]
 
   if (!article) {
     return (
-      <div className="min-h-screen flex flex-col bg-background">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground mb-4">Article non trouvé</h1>
-            <Link href="/actualites" className="text-primary hover:underline">
-              Retour aux actualités
-            </Link>
+            <h1 className="text-4xl font-serif font-bold mb-4">Article non trouvé</h1>
+            <Link href="/actualites" className="text-primary hover:underline">Retour aux actualités</Link>
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     )
   }
+
+  // Increment views and get the new count
+  const updatedViews = await incrementViews(slug)
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
       <main className="flex-1">
-        {/* Hero */}
-        <div className="relative h-[40vh] min-h-[300px] bg-primary">
-          <Image
-            src={article.image}
-            alt={article.title}
-            fill
-            className="object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
-          <div className="absolute inset-0 flex items-end">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 w-full">
-              <Link
-                href="/actualites"
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground mb-4 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Retour aux actualités
-              </Link>
-              <span className="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-semibold rounded-full mb-3">
+        {/* Article Breadcrumb Header */}
+        <section className="bg-secondary py-8 border-b border-border">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-4">
+              <Link href="/" className="hover:text-primary transition-colors">Accueil</Link>
+              <ArrowLeft className="w-3 h-3" />
+              <Link href="/actualites" className="hover:text-primary transition-colors">Actualités</Link>
+              <ArrowLeft className="w-3 h-3 rotate-180" />
+              <span className="text-foreground font-medium truncate max-w-[200px] sm:max-w-none">{article.title}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="px-3 py-1 bg-primary text-primary-foreground text-[10px] font-bold rounded-full uppercase tracking-wider">
                 {article.category}
               </span>
-              <h1 className="text-3xl md:text-4xl font-serif font-bold text-primary-foreground mb-4 text-balance">
-                {article.title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-primary-foreground/80">
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4" />
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <Calendar className="w-3.5 h-3.5" />
                   {article.date}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <User className="w-4 h-4" />
-                  {article.author}
+                  <Clock className="w-3.5 h-3.5" />
+                  {article.readTime}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4" />
-                  {article.readTime} de lecture
+                <span className="flex items-center gap-1.5 border-l border-white/20 pl-4">
+                  <Eye className="w-4 h-4" />
+                  {updatedViews || article.views} vues
                 </span>
               </div>
             </div>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-foreground leading-tight text-balance">
+              {article.title}
+            </h1>
+          </div>
+        </section>
+
+        {/* Featured Image */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+          <div className="relative h-[300px] sm:h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-background">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 1024px) 100vw, 896px"
+            />
           </div>
         </div>
 
         {/* Content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid lg:grid-cols-[1fr_250px] gap-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid lg:grid-cols-[1fr_250px] gap-12 items-start">
             {/* Article body */}
-            <article
-              className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-primary prose-blockquote:text-muted-foreground prose-blockquote:italic"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
+            <article className="min-w-0">
+              <div
+                className="prose prose-lg max-w-none 
+                  prose-headings:font-serif prose-headings:font-bold prose-headings:text-foreground
+                  prose-p:text-muted-foreground prose-p:leading-relaxed
+                  prose-strong:text-foreground prose-strong:font-bold
+                  prose-blockquote:border-primary prose-blockquote:bg-secondary/50 prose-blockquote:py-1 prose-blockquote:px-5 prose-blockquote:rounded-r-lg
+                  prose-li:text-muted-foreground"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
+
+              <div className="mt-12 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <User className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground font-medium uppercase tracking-widest">Rédigé par</div>
+                    <div className="text-sm font-bold text-foreground font-serif">{article.author}</div>
+                  </div>
+                </div>
+                <ShareButtons
+                  title={article.title}
+                  url={typeof window !== 'undefined' ? window.location.href : ''}
+                />
+              </div>
+            </article>
 
             {/* Sidebar */}
-            <aside className="space-y-6">
-              {/* Share */}
-              <div className="bg-secondary rounded-lg p-5 border border-border">
-                <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <Share2 className="w-4 h-4" />
-                  Partager
-                </h3>
-                <div className="flex gap-2">
-                  <button className="p-2 rounded-md bg-[#1877f2] text-white hover:opacity-90 transition-opacity">
-                    <Facebook className="w-4 h-4" />
-                  </button>
-                  <button className="p-2 rounded-md bg-[#1da1f2] text-white hover:opacity-90 transition-opacity">
-                    <Twitter className="w-4 h-4" />
-                  </button>
-                  <button className="p-2 rounded-md bg-[#0077b5] text-white hover:opacity-90 transition-opacity">
-                    <Linkedin className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Related */}
-              <div className="bg-secondary rounded-lg p-5 border border-border">
-                <h3 className="text-sm font-semibold text-foreground mb-3">Articles similaires</h3>
-                <div className="space-y-3">
+            <aside className="space-y-8 sticky top-24">
+              <div className="bg-secondary/50 rounded-xl p-6 border border-border backdrop-blur-sm">
+                <h3 className="text-sm font-bold text-foreground mb-4 font-serif uppercase tracking-widest border-b border-border pb-2">Articles récents</h3>
+                <div className="space-y-4">
                   {Object.entries(articles)
                     .filter(([key]) => key !== slug)
-                    .slice(0, 2)
+                    .slice(0, 3)
                     .map(([key, art]) => (
                       <Link
                         key={key}
                         href={`/actualites/${key}`}
-                        className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="group block"
                       >
-                        {art.title}
+                        <div className="text-[10px] text-primary font-bold uppercase tracking-wider mb-1">{art.category}</div>
+                        <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug font-serif">{art.title}</h4>
                       </Link>
                     ))}
                 </div>
+              </div>
+
+              <div className="bg-primary rounded-xl p-6 text-white text-center">
+                <h3 className="text-lg font-bold font-serif mb-2">Rejoignez-nous</h3>
+                <p className="text-white/70 text-xs mb-4">Prêt à devenir un expert en systèmes intelligents ?</p>
+                <Link
+                  href="/admission"
+                  className="inline-block w-full bg-white text-primary font-bold py-2 rounded-lg text-sm hover:bg-white/90 transition-colors uppercase tracking-wider font-serif"
+                >
+                  Candidater
+                </Link>
               </div>
             </aside>
           </div>

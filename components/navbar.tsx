@@ -3,18 +3,16 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, Brain, ChevronRight } from "lucide-react"
+import { Menu, X, ChevronRight } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
   { href: "/", label: "Accueil" },
   { href: "/programme", label: "Programme" },
   { href: "/actualites", label: "Actualités" },
-  { href: "/evenements", label: "Événements" },
-  { href: "/recherche", label: "Recherche" },
-  { href: "/publications", label: "Publications" },
   { href: "/enseignants", label: "Enseignants" },
-  { href: "/alumni", label: "Alumni" },
+  // { href: "/alumni", label: "Alumni" },
   { href: "/contact", label: "Contact" },
 ]
 
@@ -61,16 +59,17 @@ export default function Navbar() {
         {/* Main nav */}
         <nav className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
+            <div className="flex items-center justify-between h-24">
               {/* Logo */}
-              <Link href="/" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                  <Brain className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <div className="flex flex-col leading-tight">
-                  <span className="text-sm font-bold text-primary tracking-wide">Master ISI</span>
-                  <span className="text-[10px] text-muted-foreground tracking-widest uppercase">FSAC · Hassan II</span>
-                </div>
+              <Link href="/" className="flex items-center">
+                <Image
+                  src="/logo-blue.png"
+                  alt="Master ISI Logo"
+                  width={180}
+                  height={90}
+                  className="w-[180px] h-auto"
+                  priority
+                />
               </Link>
 
               {/* Desktop links */}
@@ -80,9 +79,9 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "px-3 py-2 text-sm font-bold rounded-lg transition-colors font-serif uppercase tracking-wider",
                       pathname === link.href
-                        ? "text-primary bg-secondary font-semibold"
+                        ? "text-primary bg-secondary"
                         : "text-foreground hover:text-primary hover:bg-secondary"
                     )}
                   >
@@ -95,7 +94,7 @@ export default function Navbar() {
               <div className="hidden lg:flex items-center gap-3">
                 <Link
                   href="/admission"
-                  className="bg-primary text-primary-foreground text-sm font-semibold px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
+                  className="bg-primary text-primary-foreground text-sm font-bold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity font-serif uppercase tracking-wider"
                 >
                   Candidater
                 </Link>
@@ -133,13 +132,13 @@ export default function Navbar() {
         {/* Menu header */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-              <Brain className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-sm font-bold text-primary">Master ISI</span>
-              <span className="text-[9px] text-muted-foreground tracking-widest uppercase">Navigation</span>
-            </div>
+            <Image
+              src="/logo-blue.png"
+              alt="Master ISI Logo"
+              width={160}
+              height={80}
+              className="w-[160px] h-auto"
+            />
           </div>
           <button
             className="p-2 rounded-md text-foreground hover:bg-secondary transition-colors"

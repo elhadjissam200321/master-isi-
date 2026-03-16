@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Merriweather } from 'next/font/google'
+import { Inter, Arima } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Preloader } from '@/components/preloader'
 import './globals.css'
@@ -10,10 +10,10 @@ const inter = Inter({
   display: 'swap',
 })
 
-const merriweather = Merriweather({
+const arima = Arima({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-merriweather',
+  variable: '--font-arima',
   display: 'swap',
 })
 
@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_MA',
   },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
@@ -37,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
-      <body className={`${inter.variable} ${merriweather.variable} font-sans antialiased`}>
+    <html lang="fr" suppressHydrationWarning>
+      <body className={`${inter.variable} ${arima.variable} font-sans antialiased`} suppressHydrationWarning>
         <Preloader />
         {children}
         <Analytics />

@@ -10,11 +10,11 @@ function PageHero({ title, subtitle, breadcrumb }: { title: string; subtitle: st
   return (
     <section className="bg-primary py-14 relative overflow-hidden">
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        {[[10,10,90,90],[90,10,10,90],[50,0,50,100],[0,50,100,50]].map(([x1,y1,x2,y2],i)=>(
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="0.5"/>
+        {[[10, 10, 90, 90], [90, 10, 10, 90], [50, 0, 50, 100], [0, 50, 100, 50]].map(([x1, y1, x2, y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="0.5" />
         ))}
-        {[[20,20],[80,20],[50,50],[20,80],[80,80]].map(([cx,cy],i)=>(
-          <circle key={i} cx={cx} cy={cy} r="1.5" fill="white"/>
+        {[[20, 20], [80, 20], [50, 50], [20, 80], [80, 80]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="1.5" fill="white" />
         ))}
       </svg>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -145,8 +145,7 @@ export default function ProgrammePage() {
             {[
               { icon: Clock, label: "Durée", value: "2 ans (4 semestres)" },
               { icon: Award, label: "Diplôme", value: "Master national accrédité" },
-              { icon: BookOpen, label: "Crédits", value: "120 crédits ECTS" },
-              { icon: Users, label: "Capacité", value: "25–30 étudiants/an" },
+              { icon: Users, label: "Capacité", value: "60 étudiants/an" },
               { icon: Globe, label: "Langue", value: "Français / Anglais" },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-3">
@@ -154,7 +153,7 @@ export default function ProgrammePage() {
                   <item.icon className="w-4.5 h-4.5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">{item.label}</div>
+                  <div className="text-xs text-muted-foreground font-serif uppercase tracking-wider font-bold">{item.label}</div>
                   <div className="text-sm font-semibold text-foreground">{item.value}</div>
                 </div>
               </div>
@@ -221,11 +220,10 @@ export default function ProgrammePage() {
                 <button
                   key={key}
                   onClick={() => setSelectedSemester(key)}
-                  className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${
-                    selectedSemester === key
-                      ? "bg-primary text-white shadow-lg"
-                      : "bg-card border border-border text-foreground hover:bg-background"
-                  }`}
+                  className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${selectedSemester === key
+                    ? "bg-primary text-white shadow-lg"
+                    : "bg-card border border-border text-foreground hover:bg-background"
+                    }`}
                 >
                   {sem.name}
                 </button>
@@ -248,7 +246,7 @@ export default function ProgrammePage() {
                         <mod.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium text-foreground">{mod.name}</div>
+                        <div className="font-bold text-foreground font-serif">{mod.name}</div>
                         <div className="text-sm text-muted-foreground">{mod.prof}</div>
                       </div>
                     </div>
@@ -265,11 +263,10 @@ export default function ProgrammePage() {
                   <button
                     key={opt.key}
                     onClick={() => setSelectedOption(opt.key)}
-                    className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${
-                      selectedOption === opt.key
-                        ? `${opt.color} text-white shadow-lg`
-                        : "bg-card border border-border text-foreground hover:bg-background"
-                    }`}
+                    className={`px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${selectedOption === opt.key
+                      ? `${opt.color} text-white shadow-lg`
+                      : "bg-card border border-border text-foreground hover:bg-background"
+                      }`}
                   >
                     {opt.name}
                   </button>
@@ -292,7 +289,7 @@ export default function ProgrammePage() {
                             <mod.icon className="w-5 h-5 text-primary" />
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium text-foreground">{mod.name}</div>
+                            <div className="font-bold text-foreground font-serif">{mod.name}</div>
                             <div className="text-sm text-muted-foreground">{mod.prof}</div>
                           </div>
                         </div>
@@ -307,7 +304,7 @@ export default function ProgrammePage() {
                             <mod.icon className="w-5 h-5 text-white" />
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium text-foreground">{mod.name}</div>
+                            <div className="font-bold text-foreground font-serif">{mod.name}</div>
                             <div className="text-sm text-muted-foreground">{mod.prof}</div>
                           </div>
                         </div>
@@ -320,11 +317,10 @@ export default function ProgrammePage() {
               {/* All Options Overview */}
               <div className="grid md:grid-cols-3 gap-6 mt-8">
                 {semesterModules.s3.options.map((opt) => (
-                  <div 
-                    key={opt.key} 
-                    className={`rounded-xl border-2 p-6 transition-all cursor-pointer ${
-                      selectedOption === opt.key ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50"
-                    }`}
+                  <div
+                    key={opt.key}
+                    className={`rounded-xl border-2 p-6 transition-all cursor-pointer ${selectedOption === opt.key ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50"
+                      }`}
                     onClick={() => setSelectedOption(opt.key)}
                   >
                     <div className={`w-3 h-3 rounded-full ${opt.color} mb-3`} />
@@ -385,14 +381,14 @@ export default function ProgrammePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/admission"
-              className="bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2"
+              className="bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 font-serif uppercase tracking-wider text-sm"
             >
               Voir les conditions d'admission
               <ChevronRight className="w-4 h-4" />
             </Link>
             <Link
               href="/contact"
-              className="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors"
+              className="border border-white/40 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-serif uppercase tracking-wider text-sm"
             >
               Nous contacter
             </Link>

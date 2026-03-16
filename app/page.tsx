@@ -2,6 +2,8 @@ import Navbar from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import Image from "next/image"
+import { getViews } from "@/lib/views"
+import { articles } from "@/data/articles"
 import {
   Brain,
   Database,
@@ -15,6 +17,8 @@ import {
   GraduationCap,
   Cpu,
   BarChart2,
+  Eye,
+  Calendar,
 } from "lucide-react"
 
 // Neural network SVG background
@@ -84,28 +88,17 @@ const stats = [
   { value: "100+", label: "Alumni actifs", icon: Award },
 ]
 
-const news = [
-  {
-    date: "Mars 2025",
-    title: "Journée Portes Ouvertes Master ISI 2025",
-    desc: "Rencontrez notre équipe pédagogique et découvrez le programme lors de notre journée d'information.",
-    tag: "Événement",
-  },
-  {
-    date: "Février 2025",
-    title: "Publication dans le Journal of Intelligent Systems",
-    desc: "L'équipe de recherche ISI publie un article sur l'optimisation des réseaux de neurones profonds.",
-    tag: "Recherche",
-  },
-  {
-    date: "Janvier 2025",
-    title: "Partenariat avec des entreprises tech de Casablanca",
-    desc: "Nouveaux partenariats pour des stages et projets de fin d'études en Intelligence Artificielle.",
-    tag: "Partenariat",
-  },
-]
+// Data is now imported from @/data/articles
 
-export default function HomePage() {
+export default async function HomePage() {
+  const views = await getViews()
+
+  const newsWithViews = Object.values(articles).slice(0, 4).map(item => ({
+    ...item,
+    desc: item.excerpt, // Map excerpt to desc for homepage UI
+    tag: item.category, // Map category to tag
+    views: views[item.slug] || item.views || 0
+  }))
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -118,6 +111,7 @@ export default function HomePage() {
           fill
           className="object-cover opacity-30"
           priority
+          sizes="100vw"
         />
         <NeuralBg className="absolute inset-0 w-full h-full" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -136,14 +130,14 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/admission"
-                className="bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2"
+                className="bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 font-serif uppercase tracking-wider text-sm"
               >
                 Candidater maintenant
                 <ChevronRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/programme"
-                className="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors"
+                className="border border-white/40 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-serif uppercase tracking-wider text-sm"
               >
                 Découvrir le programme
               </Link>
@@ -191,7 +185,7 @@ export default function HomePage() {
                 <div className={`w-12 h-12 rounded-lg ${p.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <p.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-semibold text-foreground text-base mb-2">{p.title}</h3>
+                <h3 className="font-bold text-foreground text-base mb-2 font-serif">{p.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             ))}
@@ -226,7 +220,7 @@ export default function HomePage() {
               </ul>
               <Link
                 href="/programme"
-                className="inline-flex items-center gap-2 mt-8 bg-primary text-primary-foreground font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm"
+                className="inline-flex items-center gap-2 mt-8 bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm font-serif uppercase tracking-wider"
               >
                 Voir le programme complet
                 <ChevronRight className="w-4 h-4" />
@@ -282,18 +276,50 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {news.map((n) => (
-              <article key={n.title} className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-secondary text-primary">{n.tag}</span>
-                  <span className="text-xs text-muted-foreground">{n.date}</span>
+            {newsWithViews.map((n) => (
+              <Link
+                key={n.title}
+                href={`/actualites/${n.slug}`}
+                className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group flex flex-col"
+              >
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={n.image || "/images/hero-neural.jpg"}
+                    alt={n.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-primary/90 text-white backdrop-blur-sm uppercase tracking-wider">
+                      {n.tag}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-foreground text-base leading-snug">{n.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed flex-1">{n.desc}</p>
-                <span className="text-xs text-primary font-medium flex items-center gap-1 hover:underline cursor-pointer">
-                  Lire la suite <ChevronRight className="w-3 h-3" />
-                </span>
-              </article>
+                <div className="p-6 flex flex-col flex-1 gap-3">
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground font-medium uppercase tracking-tight">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {n.date}
+                    </span>
+                    <span className="flex items-center gap-1 border-l border-border pl-3">
+                      <Eye className="w-3.5 h-3.5" />
+                      {n.views} vues
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-foreground text-lg leading-snug font-serif group-hover:text-primary transition-colors line-clamp-2">
+                    {n.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 flex-1">
+                    {n.desc}
+                  </p>
+                  <div className="pt-2 border-t border-border mt-auto">
+                    <span className="text-xs text-primary font-bold flex items-center gap-1 group-hover:gap-2 transition-all uppercase tracking-wider">
+                      Lire l&apos;article <ChevronRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -311,14 +337,14 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/admission"
-              className="bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2"
+              className="bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 font-serif uppercase tracking-wider text-sm"
             >
               Déposer ma candidature
               <ChevronRight className="w-4 h-4" />
             </Link>
             <Link
               href="/contact"
-              className="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors"
+              className="border border-white/40 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-serif uppercase tracking-wider text-sm"
             >
               Nous contacter
             </Link>

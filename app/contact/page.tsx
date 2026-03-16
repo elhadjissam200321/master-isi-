@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      
+
       <main className="flex-1">
         {/* Header Section */}
         <section className="bg-primary text-primary-foreground py-12 md:py-16">
@@ -83,13 +83,13 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-muted-foreground">
-                    <a href="mailto:master.isi@fsac.ac.ma" className="hover:text-primary transition-colors break-all">
-                      master.isi@fsac.ac.ma
+                    <a href="mailto:mahammed.errais@gmail.com" className="hover:text-primary transition-colors break-all">
+                      mahammed.errais@gmail.com
                     </a>
                   </p>
                   <p className="text-muted-foreground">
-                    <a href="mailto:info@fsac.ac.ma" className="hover:text-primary transition-colors">
-                      info@fsac.ac.ma
+                    <a href="mailto:master.isi.pro@gmail.com" className="hover:text-primary transition-colors">
+                      master.isi.pro@gmail.com
                     </a>
                   </p>
                 </div>

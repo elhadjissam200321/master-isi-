@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { Brain, MapPin, Phone, Mail, ExternalLink } from "lucide-react"
+import { MapPin, Phone, Mail, Printer, ExternalLink } from "lucide-react"
+import Image from "next/image"
 
 const footerLinks = {
   programme: [
     { href: "/programme", label: "Présentation" },
     { href: "/actualites", label: "Actualités" },
     { href: "/admission", label: "Admission" },
-    { href: "/recherche", label: "Recherche" },
   ],
   universite: [
     { href: "https://www.fsac.ac.ma", label: "FSAC", external: true },
@@ -60,16 +60,16 @@ export function Footer() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-bold text-white text-sm">Master ISI</div>
-                  <div className="text-xs text-white/70">Ingénierie des Systèmes Intelligents</div>
-                </div>
+                <Image
+                  src="/logo-white.png"
+                  alt="Master ISI Logo"
+                  width={200}
+                  height={100}
+                  className="w-[200px] h-auto grayscale brightness-0 invert opacity-90"
+                />
               </div>
               <p className="text-sm text-white/70 leading-relaxed">
-                Formation d&apos;excellence en Intelligence Artificielle et Systèmes Intelligents. 
+                Formation d&apos;excellence en Intelligence Artificielle et Systèmes Intelligents.
                 Diplôme national accrédité.
               </p>
               <div className="mt-5 space-y-2 text-sm text-white/70">
@@ -79,18 +79,22 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 shrink-0 text-white/50" />
-                  <span>+212 5 22 23 05 80</span>
+                  <span>+212 5 22 23 06 80 / 84</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Printer className="w-4 h-4 shrink-0 text-white/50" />
+                  <span>Fax: +212 5 22 23 06 74</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 shrink-0 text-white/50" />
-                  <span>master-isi@fsac.ac.ma</span>
+                  <span>master.isi.pro@gmail.com</span>
                 </div>
               </div>
             </div>
 
             {/* Programme */}
             <div>
-              <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-4">Programme</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Programme</h3>
               <ul className="space-y-2">
                 {footerLinks.programme.map((link) => (
                   <li key={link.href}>
@@ -104,7 +108,7 @@ export function Footer() {
 
             {/* Université */}
             <div>
-              <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-4">Université</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Université</h3>
               <ul className="space-y-2">
                 {footerLinks.universite.map((link) => (
                   <li key={link.href}>
@@ -124,7 +128,7 @@ export function Footer() {
 
             {/* Communauté */}
             <div>
-              <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-4">Communauté</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Communauté</h3>
               <ul className="space-y-2">
                 {footerLinks.communaute.map((link) => (
                   <li key={link.href}>
