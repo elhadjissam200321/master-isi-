@@ -7,11 +7,11 @@ function PageHero({ title, subtitle, breadcrumb }: { title: string; subtitle: st
   return (
     <section className="bg-primary py-14 relative overflow-hidden">
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        {[[10,10,90,90],[90,10,10,90],[50,0,50,100],[0,50,100,50]].map(([x1,y1,x2,y2],i)=>(
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="0.5"/>
+        {[[10, 10, 90, 90], [90, 10, 10, 90], [50, 0, 50, 100], [0, 50, 100, 50]].map(([x1, y1, x2, y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="0.5" />
         ))}
-        {[[20,20],[80,20],[50,50],[20,80],[80,80]].map(([cx,cy],i)=>(
-          <circle key={i} cx={cx} cy={cy} r="1.5" fill="white"/>
+        {[[20, 20], [80, 20], [50, 50], [20, 80], [80, 80]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="1.5" fill="white" />
         ))}
       </svg>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +39,8 @@ function AlumniAvatar({ name, color = "bg-primary" }: { name: string; color?: st
 const alumni = [
   {
     name: "Amine Benchekroun",
-    promo: "Promotion 2020",
+    promo: "2020",
+    promoName: "Al-Khwarizmi",
     position: "Data Scientist Senior",
     company: "OCP SA – Casablanca",
     location: "Casablanca, Maroc",
@@ -49,7 +50,8 @@ const alumni = [
   },
   {
     name: "Fatima Zahra El Moussaoui",
-    promo: "Promotion 2021",
+    promo: "2021",
+    promoName: "Ada Lovelace",
     position: "ML Engineer",
     company: "Capgemini – Paris",
     location: "Paris, France",
@@ -59,7 +61,8 @@ const alumni = [
   },
   {
     name: "Khalid Berrada",
-    promo: "Promotion 2019",
+    promo: "2019",
+    promoName: "Ibn Sina",
     position: "AI Research Scientist",
     company: "University of Montreal – MILA",
     location: "Montréal, Canada",
@@ -69,7 +72,8 @@ const alumni = [
   },
   {
     name: "Imane Tahiri",
-    promo: "Promotion 2022",
+    promo: "2022",
+    promoName: "Alan Turing",
     position: "Data Engineer",
     company: "Attijariwafa Bank",
     location: "Casablanca, Maroc",
@@ -79,7 +83,8 @@ const alumni = [
   },
   {
     name: "Yassine Cherkaoui",
-    promo: "Promotion 2020",
+    promo: "2020",
+    promoName: "Al-Khwarizmi",
     position: "Fondateur & CEO",
     company: "AInnova – Startup IA",
     location: "Casablanca, Maroc",
@@ -89,7 +94,8 @@ const alumni = [
   },
   {
     name: "Sara Ouazzani",
-    promo: "Promotion 2023",
+    promo: "2023",
+    promoName: "Marie Curie",
     position: "NLP Engineer",
     company: "OrangeMoney",
     location: "Casablanca, Maroc",
@@ -164,9 +170,12 @@ export default function AlumniPage() {
                   <p className="text-xs text-foreground leading-relaxed pl-4 italic">{a.quote}</p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs bg-secondary text-muted-foreground px-2 py-0.5 rounded-full border border-border">
-                    {a.promo}
-                  </span>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Promotion {a.promo}</span>
+                    <span className="text-xs font-serif font-bold text-primary italic">
+                      {a.promoName}
+                    </span>
+                  </div>
                   <span className="text-xs font-semibold text-primary">{a.sector}</span>
                 </div>
               </article>

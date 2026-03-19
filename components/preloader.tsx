@@ -47,14 +47,14 @@ export function Preloader() {
           </svg>
 
           {/* Center favicon icon */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center p-4">
             <div className="animate-pulse">
               <Image
                 src="/favicon.png"
                 alt="Loading Logo"
-                width={100}
-                height={100}
-                className="w-[100px] h-auto"
+                width={80}
+                height={80}
+                className="w-full h-auto"
               />
             </div>
           </div>

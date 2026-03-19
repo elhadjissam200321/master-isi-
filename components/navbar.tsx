@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 const navLinks = [
   { href: "/", label: "Accueil" },
   { href: "/programme", label: "Programme" },
+  { href: "/promotions", label: "Promotions" },
   { href: "/actualites", label: "Actualités" },
   { href: "/enseignants", label: "Enseignants" },
   // { href: "/alumni", label: "Alumni" },

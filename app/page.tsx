@@ -19,6 +19,9 @@ import {
   BarChart2,
   Eye,
   Calendar,
+  Quote,
+  Building2,
+  Star,
 } from "lucide-react"
 
 // Neural network SVG background
@@ -81,11 +84,55 @@ const pillars = [
   },
 ]
 
-const stats = [
+  const stats = [
   { value: "2", label: "Années de formation", icon: GraduationCap },
   { value: "20+", label: "Modules spécialisés", icon: BookOpen },
   { value: "15+", label: "Enseignants-chercheurs", icon: Users },
   { value: "100+", label: "Alumni actifs", icon: Award },
+]
+
+const alumni = [
+  {
+    name: "ABBA MOHSSINE",
+    promo: "2025",
+    role: "Data Scientist",
+    company: "OCP Group",
+    review: "Le Master ISI m'a fourni les compétences solides en IA et Machine Learning qui m'ont permis de relever les défis technologiques chez OCP.",
+    avatar: "AM",
+  },
+  {
+    name: "AYA BECHCHAR",
+    promo: "2025",
+    role: "Ingénieure IA",
+    company: "Attijariwafa bank",
+    review: "Une formation d'excellence avec des projets concrets. La combinaison théorie-pratique m'a préparée parfaitement au monde professionnel.",
+    avatar: "AB",
+  },
+  {
+    name: "YASSINE GOUCH",
+    promo: "2025",
+    role: "ML Engineer",
+    company: "Avansecret",
+    review: "Les laboratoires bien équipés et l'encadrement des enseignants m'ont permis de développer des compétences avancées en Deep Learning.",
+    avatar: "YG",
+  },
+  {
+    name: "HIBA NASSI",
+    promo: "2025",
+    role: "Data Analyst",
+    company: "Société Générale",
+    review: "Le réseau alumni et les partenariats avec les entreprises m'ont facilité l'accès à des opportunités professionnelles de qualité.",
+    avatar: "HN",
+  },
+]
+
+const partners = [
+  { name: "Partenaire 1", placeholder: true },
+  { name: "Partenaire 2", placeholder: true },
+  { name: "Partenaire 3", placeholder: true },
+  { name: "Partenaire 4", placeholder: true },
+  { name: "Partenaire 5", placeholder: true },
+  { name: "Partenaire 6", placeholder: true },
 ]
 
 // Data is now imported from @/data/articles
@@ -320,6 +367,87 @@ export default async function HomePage() {
                   </div>
                 </div>
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ALUMNI TESTIMONIALS ── */}
+      <section className="py-16 bg-secondary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Témoignages</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
+              Nos alumni parlent de nous
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
+              Découvrez les parcours réussis de nos anciens étudiants intégrés dans les meilleures entreprises.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {alumni.map((a) => (
+              <div key={a.name} className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all flex flex-col">
+                <Quote className="w-8 h-8 text-primary/30 mb-4" />
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4 italic">
+                  &ldquo;{a.review}&rdquo;
+                </p>
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-border">
+                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+                    {a.avatar}
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground text-sm">{a.name}</p>
+                    <p className="text-xs text-muted-foreground">Promotion {a.promo}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>{a.company}</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-primary font-medium mt-1">
+                  <span>{a.role}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link
+              href="/alumni"
+              className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm uppercase tracking-wider"
+            >
+              Voir tous les alumni <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PARTNERS & SCHOLARSHIPS ── */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Partenariats</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
+              Nos partenaires et sponsors
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
+              Le Master ISI bénéficie du soutien d&apos;entreprises et d&apos;organisations reconnaîtives.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+            {partners.map((p) => (
+              <div
+                key={p.name}
+                className="bg-card border border-border rounded-xl p-6 flex items-center justify-center hover:shadow-md hover:border-primary/30 transition-all aspect-[3/2]"
+              >
+                <div className="bg-muted/50 border-2 border-dashed border-border rounded-lg w-full h-full flex items-center justify-center">
+                  <span className="text-muted-foreground text-xs font-medium text-center px-2">{p.name}</span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
