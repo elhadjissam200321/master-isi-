@@ -4,6 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getViews } from "@/lib/views"
 import { articles } from "@/data/articles"
+import AnimatedPartners from "@/components/animated-partners"
+import { Reveal } from "@/components/reveal"
 import {
   Brain,
   Database,
@@ -11,6 +13,7 @@ import {
   Network,
   Award,
   Users,
+  Target,
   BookOpen,
   FlaskConical,
   ChevronRight,
@@ -84,7 +87,7 @@ const pillars = [
   },
 ]
 
-  const stats = [
+const stats = [
   { value: "2", label: "Années de formation", icon: GraduationCap },
   { value: "20+", label: "Modules spécialisés", icon: BookOpen },
   { value: "15+", label: "Enseignants-chercheurs", icon: Users },
@@ -203,12 +206,14 @@ export default async function HomePage() {
       <section className="py-12 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center text-center p-6 rounded-xl bg-secondary border border-border">
-                <s.icon className="w-8 h-8 text-primary mb-3" />
-                <span className="text-3xl font-bold text-primary font-serif">{s.value}</span>
-                <span className="text-sm text-muted-foreground mt-1">{s.label}</span>
-              </div>
+            {stats.map((s, i) => (
+              <Reveal key={s.label} delay={i * 100} direction="up">
+                <div className="flex flex-col items-center text-center p-6 rounded-xl bg-secondary border border-border">
+                  <s.icon className="w-8 h-8 text-primary mb-3" />
+                  <span className="text-3xl font-bold text-primary font-serif">{s.value}</span>
+                  <span className="text-sm text-muted-foreground mt-1">{s.label}</span>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -217,24 +222,28 @@ export default async function HomePage() {
       {/* ── PILLARS ── */}
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Domaines de formation</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-              4 axes technologiques d&apos;excellence
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-              Le Master ISI couvre les disciplines fondamentales des systèmes intelligents pour former des ingénieurs polyvalents et opérationnels.
-            </p>
-          </div>
+          <Reveal direction="up">
+            <div className="text-center mb-12">
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Domaines de formation</span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
+                4 axes technologiques d&apos;excellence
+              </h2>
+              <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
+                Le Master ISI couvre les disciplines fondamentales des systèmes intelligents pour former des ingénieurs polyvalents et opérationnels.
+              </p>
+            </div>
+          </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillars.map((p) => (
-              <div key={p.title} className="group bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all">
-                <div className={`w-12 h-12 rounded-lg ${p.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <p.icon className="w-6 h-6 text-white" />
+            {pillars.map((p, i) => (
+              <Reveal key={p.title} delay={i * 100} direction="up">
+                <div className="group bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all h-full">
+                  <div className={`w-12 h-12 rounded-lg ${p.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <p.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-foreground text-base mb-2 font-serif">{p.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                 </div>
-                <h3 className="font-bold text-foreground text-base mb-2 font-serif">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -244,68 +253,46 @@ export default async function HomePage() {
       <section className="py-16 bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Pourquoi nous choisir</span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 mb-6 text-balance">
-                Une formation ancrée dans la recherche et l&apos;industrie
-              </h2>
-              <ul className="space-y-4">
-                {[
-                  { icon: FlaskConical, text: "Laboratoires de recherche reconnus au niveau national et international" },
-                  { icon: Cpu, text: "Projets réels avec des entreprises tech partenaires de Casablanca" },
-                  { icon: BarChart2, text: "Taux d'insertion professionnelle élevé, secteurs IA, finance, santé" },
-                  { icon: GraduationCap, text: "Corps enseignant composé de chercheurs et de professionnels en exercice" },
-                  { icon: Network, text: "Réseau alumni actif et communauté professionnelle au Maroc et à l'international" },
-                ].map((item) => (
-                  <li key={item.text} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <item.icon className="w-4 h-4 text-primary" />
+            <Reveal direction="left">
+              <div>
+                <span className="text-accent text-sm font-semibold uppercase tracking-widest">Pourquoi nous choisir</span>
+                <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 mb-6 text-balance">
+                  Une formation d&apos;excellence ancrée dans le monde professionnel
+                </h2>
+                <div className="space-y-4">
+                  {[
+                    { icon: Users, text: "Accompagnement personnalisé par des experts et académiciens" },
+                    { icon: Target, text: "Curriculum aligné sur les besoins actuels du marché de l'IA" },
+                    { icon: Cpu, text: "Projets réels avec des entreprises tech partenaires de Casablanca" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="mt-1 bg-primary/10 p-2 rounded-full">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed italic">{item.text}</p>
                     </div>
-                    <span className="text-sm text-foreground leading-relaxed">{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/programme"
-                className="inline-flex items-center gap-2 mt-8 bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm font-serif uppercase tracking-wider"
-              >
-                Voir le programme complet
-                <ChevronRight className="w-4 h-4" />
-              </Link>
-            </div>
-            {/* Data-science illustration */}
-            <div className="relative rounded-2xl overflow-hidden bg-primary/5 border border-border p-8">
-              <svg viewBox="0 0 400 320" className="w-full" aria-label="Data science and AI visual diagram">
-                {/* Center node – AI */}
-                <circle cx="200" cy="160" r="36" fill="hsl(240 60% 38%)" />
-                <text x="200" y="155" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">SYSTÈMES</text>
-                <text x="200" y="167" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">INTELLIGENTS</text>
-
-                {/* Satellite nodes */}
-                {[
-                  { x: 80, y: 80, label: "IA", color: "hsl(200 60% 45%)" },
-                  { x: 320, y: 80, label: "ML", color: "hsl(240 55% 50%)" },
-                  { x: 60, y: 240, label: "Data", color: "hsl(200 60% 45%)" },
-                  { x: 340, y: 240, label: "IoT", color: "hsl(240 55% 50%)" },
-                  { x: 200, y: 40, label: "NLP", color: "hsl(220 60% 42%)" },
-                  { x: 200, y: 280, label: "Vision", color: "hsl(220 60% 42%)" },
-                ].map((n) => (
-                  <g key={n.label}>
-                    <line x1={n.x} y1={n.y} x2="200" y2="160" stroke="hsl(240 60% 38%)" strokeWidth="1.5" strokeOpacity="0.3" />
-                    <circle cx={n.x} cy={n.y} r="22" fill={n.color} />
-                    <text x={n.x} y={n.y + 4} textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">{n.label}</text>
-                  </g>
-                ))}
-                {/* Outer ring dots */}
-                {Array.from({ length: 12 }).map((_, i) => {
-                  const angle = (i / 12) * Math.PI * 2
-                  const rx = 170, ry = 130
-                  const x = 200 + rx * Math.cos(angle)
-                  const y = 160 + ry * Math.sin(angle)
-                  return <circle key={i} cx={x} cy={y} r="3" fill="hsl(240 60% 38%)" fillOpacity="0.2" />
-                })}
-              </svg>
-            </div>
+                  ))}
+                </div>
+                <Link
+                  href="/programme"
+                  className="inline-flex items-center gap-2 mt-8 bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm font-serif uppercase tracking-wider"
+                >
+                  Voir le programme complet
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal direction="right" delay={200}>
+              <div className="relative group overflow-hidden rounded-2xl shadow-2xl border border-primary/20">
+                <Image
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
+                  alt="Étudiants en collaboration"
+                  width={800}
+                  height={500}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -375,44 +362,48 @@ export default async function HomePage() {
       {/* ── ALUMNI TESTIMONIALS ── */}
       <section className="py-16 bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Témoignages</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-              Nos alumni parlent de nous
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-              Découvrez les parcours réussis de nos anciens étudiants intégrés dans les meilleures entreprises.
-            </p>
-          </div>
+          <Reveal direction="up">
+            <div className="text-center mb-12">
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Témoignages</span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
+                Nos alumni parlent de nous
+              </h2>
+              <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
+                Découvrez les parcours réussis de nos anciens étudiants intégrés dans les meilleures entreprises.
+              </p>
+            </div>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {alumni.map((a) => (
-              <div key={a.name} className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all flex flex-col">
-                <Quote className="w-8 h-8 text-primary/30 mb-4" />
-                <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4 italic">
-                  &ldquo;{a.review}&rdquo;
-                </p>
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
-                  ))}
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-border">
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
-                    {a.avatar}
+            {alumni.map((a, i) => (
+              <Reveal key={a.name} delay={i * 100} direction="up">
+                <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all flex flex-col h-full">
+                  <Quote className="w-8 h-8 text-primary/30 mb-4" />
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4 italic">
+                    &ldquo;{a.review}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
+                    ))}
                   </div>
-                  <div>
-                    <p className="font-bold text-foreground text-sm">{a.name}</p>
-                    <p className="text-xs text-muted-foreground">Promotion {a.promo}</p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-border">
+                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+                      {a.avatar}
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground text-sm">{a.name}</p>
+                      <p className="text-xs text-muted-foreground">Promotion {a.promo}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
+                    <Building2 className="w-3.5 h-3.5" />
+                    <span>{a.company}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-primary font-medium mt-1">
+                    <span>{a.role}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>{a.company}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-primary font-medium mt-1">
-                  <span>{a.role}</span>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
           <div className="text-center mt-10">
@@ -420,36 +411,31 @@ export default async function HomePage() {
               href="/alumni"
               className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm uppercase tracking-wider"
             >
-              Voir tous les alumni <ChevronRight className="w-4 h-4" />
+              Voir tous les témoignages <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* ── PARTNERS & SCHOLARSHIPS ── */}
-      <section className="py-16 bg-background">
+      {/* ── PARTNERS ── */}
+      <section className="py-16 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-accent text-sm font-semibold uppercase tracking-widest">Partenariats</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-              Nos partenaires et sponsors
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-              Le Master ISI bénéficie du soutien d&apos;entreprises et d&apos;organisations reconnaîtives.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-            {partners.map((p) => (
-              <div
-                key={p.name}
-                className="bg-card border border-border rounded-xl p-6 flex items-center justify-center hover:shadow-md hover:border-primary/30 transition-all aspect-[3/2]"
-              >
-                <div className="bg-muted/50 border-2 border-dashed border-border rounded-lg w-full h-full flex items-center justify-center">
-                  <span className="text-muted-foreground text-xs font-medium text-center px-2">{p.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Reveal direction="up">
+            <div className="text-center mb-12">
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Partenariats</span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
+                Nos partenaires industriels
+              </h2>
+              <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
+                Le Master ISI bénéficie du soutien d&apos;entreprises et d&apos;organisations de premier plan.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={200} direction="up">
+            <AnimatedPartners />
+          </Reveal>
         </div>
       </section>
 
