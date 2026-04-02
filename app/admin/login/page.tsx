@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Lock, Eye, EyeOff, Brain } from "lucide-react"
+import Image from "next/image"
+import { Lock, Eye, EyeOff } from "lucide-react"
 
 export default function AdminLoginPage() {
     const [password, setPassword] = useState("")
@@ -33,13 +34,22 @@ export default function AdminLoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
             <div className="w-full max-w-sm">
-                {/* Logo */}
-                <div className="flex flex-col items-center mb-8">
-                    <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/30">
-                        <Brain className="w-8 h-8 text-white" />
+                {/* Logo Area */}
+                <div className="flex flex-col items-center mb-10">
+                    <div className="w-24 h-24 bg-primary rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-primary/20 p-4">
+                        <Image
+                            src="/logo-blue.png"
+                            alt="Logo ISI"
+                            width={160}
+                            height={80}
+                            className="w-full h-auto brightness-0 invert"
+                            priority
+                        />
                     </div>
-                    <h1 className="text-2xl font-bold text-white">Master ISI</h1>
-                    <p className="text-slate-400 text-sm mt-1">Administration</p>
+                    <div className="text-center">
+                        <h1 className="text-2xl font-serif font-bold text-white tracking-wide uppercase">Master ISI</h1>
+                        <p className="text-slate-400 text-sm mt-1.5 font-medium opacity-80">Administration du Portail</p>
+                    </div>
                 </div>
 
                 {/* Card */}
