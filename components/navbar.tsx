@@ -64,25 +64,25 @@ export default function Navbar() {
               {/* Logo area */}
               <div className="flex items-center h-full -ml-4 sm:-ml-6 lg:-ml-8">
                 <Link href="/" className="flex items-center h-full">
-                  {/* FSAC Logo — desktop only */}
-                  <div className="hidden lg:flex items-center h-full px-4 border-r border-border/40">
+                  {/* FSAC Logo Area — taking width, not full height */}
+                  <div className="hidden lg:flex items-center h-full px-12 border-r border-border/30">
                     <Image
                       src="https://fsac.univh2c.ma/front/images/FSAC%20LOGO.jpg"
                       alt="FSAC Logo"
-                      width={100}
-                      height={100}
-                      className="h-24 w-auto object-contain brightness-100"
+                      width={120}
+                      height={60}
+                      className="h-16 w-auto object-contain"
                       priority
                     />
                   </div>
-                  {/* ISI Logo — with some spacing */}
-                  <div className="px-4">
+                  {/* ISI Logo Area */}
+                  <div className="px-8 flex items-center h-full">
                     <Image
                       src="/logo-blue.png"
                       alt="Master ISI Logo"
                       width={180}
                       height={90}
-                      className="w-[160px] h-auto"
+                      className="w-[170px] h-auto"
                       priority
                     />
                   </div>
