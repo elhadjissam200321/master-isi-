@@ -1,0 +1,58 @@
+{
+    "stats": [
+        {
+            "value": "2",
+            "label": "Années de formation",
+            "icon": "GraduationCap"
+        },
+        {
+            "value": "20+",
+            "label": "Modules spécialisés",
+            "icon": "BookOpen"
+        },
+        {
+            "value": "15+",
+            "label": "Enseignants-chercheurs",
+            "icon": "Users"
+        },
+        {
+            "value": "100+",
+            "label": "Alumni actifs",
+            "icon": "Award"
+        }
+    ],
+    "pillars": [
+        {
+            "icon": "Brain",
+            "title": "Intelligence Artificielle",
+            "desc": "Algorithmes d'IA, apprentissage profond, réseaux de neurones et systèmes experts pour résoudre des problèmes complexes.",
+            "color": "bg-primary"
+        },
+        {
+            "icon": "TrendingUp",
+            "title": "Machine Learning",
+            "desc": "Modèles supervisés, non supervisés et par renforcement. Ingénierie des caractéristiques et optimisation de modèles.",
+            "color": "bg-accent"
+        },
+        {
+            "icon": "Database",
+            "title": "Data Science",
+            "desc": "Collecte, traitement et analyse de données massives. Visualisation et extraction de connaissances à partir de grandes bases.",
+            "color": "bg-primary"
+        },
+        {
+            "icon": "Network",
+            "title": "Systèmes Intelligents",
+            "desc": "Architecture de systèmes distribués et intelligents, IoT, robotique et systèmes autonomes embarqués.",
+            "color": "bg-accent"
+        }
+    ],
+    "hero": {
+        "badge": "Formation d'excellence",
+        "title": "Ingénierie des Systèmes Intelligents",
+        "subtitle": "Faculté des Sciences Aïn Chock, Université Hassan II de Casablanca",
+        "description": "Le Master ISI forme des ingénieurs experts en Intelligence Artificielle, Machine Learning et Data Science pour répondre aux enjeux de la transformation numérique.",
+        "cta_primary": "Candidater maintenant",
+        "cta_secondary": "En savoir plus"
+    }
+}

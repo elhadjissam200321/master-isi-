@@ -2,24 +2,17 @@ import Link from "next/link"
 import { MapPin, Phone, Mail, Printer, ExternalLink } from "lucide-react"
 import Image from "next/image"
 
-const footerLinks = {
-  programme: [
-    { href: "/programme", label: "Présentation" },
-    { href: "/actualites", label: "Actualités" },
-    { href: "/admission", label: "Admission" },
-  ],
-  universite: [
-    { href: "https://www.fsac.ac.ma", label: "FSAC", external: true },
-    { href: "https://www.uh2c.ac.ma", label: "Université Hassan II", external: true },
-  ],
-  communaute: [
-    { href: "/enseignants", label: "Équipe pédagogique" },
-    { href: "/alumni", label: "Réseau alumni" },
-    { href: "/contact", label: "Nous contacter" },
-  ],
+async function getFooterData() {
+  const [config, contact] = await Promise.all([
+    import("@/data/site-config.json").then(m => m.default),
+    import("@/data/contact.json").then(m => m.default)
+  ])
+  return { config, contact }
 }
 
-export function Footer() {
+export async function Footer() {
+  const { config, contact } = await getFooterData()
+
   return (
     <footer className="bg-primary text-primary-foreground">
       {/* Neural network SVG background pattern */}
@@ -75,29 +68,25 @@ export function Footer() {
               <div className="mt-5 space-y-2 text-sm text-white/70">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-white/50" />
-                  <span>Km 8, Route El Jadida, Casablanca</span>
+                  <span>{contact.address}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 shrink-0 text-white/50" />
-                  <span>+212 5 22 23 06 80 / 84</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Printer className="w-4 h-4 shrink-0 text-white/50" />
-                  <span>Fax: +212 5 22 23 06 74</span>
+                  <span>{contact.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 shrink-0 text-white/50" />
-                  <span>master.isi.pro@gmail.com</span>
+                  <span>{contact.email}</span>
                 </div>
               </div>
             </div>
 
-            {/* Programme */}
+            {/* Useful Links */}
             <div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Programme</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Liens Utiles</h3>
               <ul className="space-y-2">
-                {footerLinks.programme.map((link) => (
-                  <li key={link.href}>
+                {config.footer.usefulLinks.map((link: any) => (
+                  <li key={link.label}>
                     <Link href={link.href} className="text-sm text-white/70 hover:text-white transition-colors">
                       {link.label}
                     </Link>
@@ -106,35 +95,35 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Université */}
+            {/* Master ISI */}
             <div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Université</h3>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Master ISI</h3>
               <ul className="space-y-2">
-                {footerLinks.universite.map((link) => (
-                  <li key={link.href}>
+                {config.footer.masterLinks.map((link: any) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-sm text-white/70 hover:text-white transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Socials */}
+            <div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Réseaux Sociaux</h3>
+              <ul className="space-y-2">
+                {Object.entries(config.socials).map(([name, url]: [string, any]) => (
+                  <li key={name}>
                     <a
-                      href={link.href}
+                      href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-white/70 hover:text-white transition-colors flex items-center gap-1"
+                      className="text-sm text-white/70 hover:text-white transition-colors flex items-center gap-1 capitalize"
                     >
-                      {link.label}
+                      {name}
                       <ExternalLink className="w-3 h-3" />
                     </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Communauté */}
-            <div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 font-serif">Communauté</h3>
-              <ul className="space-y-2">
-                {footerLinks.communaute.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-white/70 hover:text-white transition-colors">
-                      {link.label}
-                    </Link>
                   </li>
                 ))}
               </ul>
@@ -146,7 +135,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs text-white/50">
-          <span>© {new Date().getFullYear()} Master ISI – FSAC, Université Hassan II de Casablanca. Tous droits réservés.</span>
+          <span>© {new Date().getFullYear()} {config.siteName} – {config.facultyName}, {config.universityName}. Tous droits réservés.</span>
         </div>
       </div>
     </footer>

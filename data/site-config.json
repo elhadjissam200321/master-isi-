@@ -1,0 +1,71 @@
+{
+    "siteName": "Master ISI",
+    "universityName": "Université Hassan II de Casablanca",
+    "facultyName": "Faculté des Sciences Aïn Chock",
+    "socials": {
+        "facebook": "https://facebook.com/masterisi",
+        "linkedin": "https://linkedin.com/school/masterisi",
+        "youtube": "https://youtube.com/@masterisi",
+        "twitter": "https://twitter.com/masterisi"
+    },
+    "navigation": [
+        {
+            "label": "Accueil",
+            "href": "/"
+        },
+        {
+            "label": "Programme",
+            "href": "/programme"
+        },
+        {
+            "label": "Actualités",
+            "href": "/articles"
+        },
+        {
+            "label": "Enseignants",
+            "href": "/enseignants"
+        },
+        {
+            "label": "Contact",
+            "href": "/contact"
+        }
+    ],
+    "footer": {
+        "usefulLinks": [
+            {
+                "label": "Espace Étudiant",
+                "href": "#"
+            },
+            {
+                "label": "Inscription en ligne",
+                "href": "/admission"
+            },
+            {
+                "label": "Emploi du temps",
+                "href": "#"
+            },
+            {
+                "label": "Règlement intérieur",
+                "href": "#"
+            }
+        ],
+        "masterLinks": [
+            {
+                "label": "À propos du Master",
+                "href": "/about"
+            },
+            {
+                "label": "Le programme ISI",
+                "href": "/programme"
+            },
+            {
+                "label": "Partenaires industriels",
+                "href": "/#partners"
+            },
+            {
+                "label": "Success Stories",
+                "href": "/alumni"
+            }
+        ]
+    }
+}

@@ -7,19 +7,27 @@ import { Menu, X, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/programme", label: "Programme" },
-  { href: "/promotions", label: "Promotions" },
-  { href: "/actualites", label: "Actualités" },
-  { href: "/enseignants", label: "Enseignants" },
-  // { href: "/alumni", label: "Alumni" },
-  { href: "/contact", label: "Contact" },
-]
-
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [navLinks, setNavLinks] = useState<{ href: string, label: string }[]>([
+    { href: "/", label: "Accueil" },
+    { href: "/programme", label: "Programme" },
+    { href: "/actualites", label: "Actualités" },
+    { href: "/enseignants", label: "Enseignants" },
+    { href: "/contact", label: "Contact" },
+  ])
   const pathname = usePathname()
+
+  useEffect(() => {
+    fetch("/api/admin/config")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.navigation) {
+          setNavLinks(data.navigation)
+        }
+      })
+      .catch(err => console.error("Failed to load nav links", err))
+  }, [])
 
   // Close menu on route change
   useEffect(() => {

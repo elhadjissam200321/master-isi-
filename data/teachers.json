@@ -1,5 +1,13 @@
 [
     {
+        "id": 16,
+        "name": "Pr. ERRAIS MOHAMMED",
+        "title": "Coordonnateur du Master ISI",
+        "role": "Professeur de l'Enseignement Supérieur",
+        "speciality": "IoT, Cloud Computing, Réseaux",
+        "color": "bg-primary"
+    },
+    {
         "id": 1,
         "name": "Pr. AZBEG KEBIRA",
         "title": "Professeure de l'Enseignement Supérieur",

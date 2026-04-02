@@ -11,20 +11,18 @@ import {
   Database,
   TrendingUp,
   Network,
+  Quote,
+  GraduationCap,
+  BookOpen,
   Award,
   Users,
   Target,
-  BookOpen,
-  FlaskConical,
-  ChevronRight,
-  GraduationCap,
   Cpu,
-  BarChart2,
+  ChevronRight,
   Eye,
   Calendar,
-  Quote,
-  Building2,
   Star,
+  Building2
 } from "lucide-react"
 
 // Neural network SVG background
@@ -60,95 +58,26 @@ function NeuralBg({ className = "" }: { className?: string }) {
   )
 }
 
-const pillars = [
-  {
-    icon: Brain,
-    title: "Intelligence Artificielle",
-    desc: "Algorithmes d'IA, apprentissage profond, réseaux de neurones et systèmes experts pour résoudre des problèmes complexes.",
-    color: "bg-primary",
-  },
-  {
-    icon: TrendingUp,
-    title: "Machine Learning",
-    desc: "Modèles supervisés, non supervisés et par renforcement. Ingénierie des caractéristiques et optimisation de modèles.",
-    color: "bg-accent",
-  },
-  {
-    icon: Database,
-    title: "Data Science",
-    desc: "Collecte, traitement et analyse de données massives. Visualisation et extraction de connaissances à partir de grandes bases.",
-    color: "bg-primary",
-  },
-  {
-    icon: Network,
-    title: "Systèmes Intelligents",
-    desc: "Architecture de systèmes distribués et intelligents, IoT, robotique et systèmes autonomes embarqués.",
-    color: "bg-accent",
-  },
-]
-
-const stats = [
-  { value: "2", label: "Années de formation", icon: GraduationCap },
-  { value: "20+", label: "Modules spécialisés", icon: BookOpen },
-  { value: "15+", label: "Enseignants-chercheurs", icon: Users },
-  { value: "100+", label: "Alumni actifs", icon: Award },
-]
-
-const alumni = [
-  {
-    name: "ABBA MOHSSINE",
-    promo: "2025",
-    role: "Data Scientist",
-    company: "OCP Group",
-    review: "Le Master ISI m'a fourni les compétences solides en IA et Machine Learning qui m'ont permis de relever les défis technologiques chez OCP.",
-    avatar: "AM",
-  },
-  {
-    name: "AYA BECHCHAR",
-    promo: "2025",
-    role: "Ingénieure IA",
-    company: "Attijariwafa bank",
-    review: "Une formation d'excellence avec des projets concrets. La combinaison théorie-pratique m'a préparée parfaitement au monde professionnel.",
-    avatar: "AB",
-  },
-  {
-    name: "YASSINE GOUCH",
-    promo: "2025",
-    role: "ML Engineer",
-    company: "Avansecret",
-    review: "Les laboratoires bien équipés et l'encadrement des enseignants m'ont permis de développer des compétences avancées en Deep Learning.",
-    avatar: "YG",
-  },
-  {
-    name: "HIBA NASSI",
-    promo: "2025",
-    role: "Data Analyst",
-    company: "Société Générale",
-    review: "Le réseau alumni et les partenariats avec les entreprises m'ont facilité l'accès à des opportunités professionnelles de qualité.",
-    avatar: "HN",
-  },
-]
-
-const partners = [
-  { name: "Partenaire 1", placeholder: true },
-  { name: "Partenaire 2", placeholder: true },
-  { name: "Partenaire 3", placeholder: true },
-  { name: "Partenaire 4", placeholder: true },
-  { name: "Partenaire 5", placeholder: true },
-  { name: "Partenaire 6", placeholder: true },
-]
-
-// Data is now imported from @/data/articles
+// Fetch dynamic data
+async function getHomepageData() {
+  const [homepage, alumni, partners] = await Promise.all([
+    import("@/data/homepage.json").then(m => m.default),
+    import("@/data/alumni.json").then(m => m.default),
+    import("@/data/partners.json").then(m => m.default)
+  ])
+  return { homepage, alumni, partners }
+}
 
 export default async function HomePage() {
   const views = await getViews()
+  const { homepage, alumni, partners } = await getHomepageData()
 
   const newsWithViews = Object.values(articles).slice(0, 4).map(item => ({
     ...item,
-    desc: item.excerpt, // Map excerpt to desc for homepage UI
-    tag: item.category, // Map category to tag
-    views: views[item.slug] || item.views || 0
+    desc: item.excerpt,
+    tag: item.category,
   }))
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -168,28 +97,27 @@ export default async function HomePage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/80 text-xs font-medium px-3 py-1.5 rounded-full mb-6 backdrop-blur-sm">
               <Cpu className="w-3.5 h-3.5" />
-              Diplôme National Accrédité – FSAC
+              {homepage.hero.badge}
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight text-balance mb-6">
-              Master en Ingénierie des Systèmes Intelligents
+              {homepage.hero.title}
             </h1>
             <p className="text-white/80 text-lg leading-relaxed max-w-2xl mb-8">
-              Formez-vous aux technologies d&apos;avenir : Intelligence Artificielle, Machine Learning et Data Science.
-              Une formation d&apos;excellence à la Faculté des Sciences Aïn Chock, Université Hassan II de Casablanca.
+              {homepage.hero.subtitle || homepage.hero.description}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/admission"
-                className="bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 font-serif uppercase tracking-wider text-sm"
+                className="px-8 py-4 bg-white text-primary font-bold rounded-xl hover:bg-opacity-90 transition-all shadow-lg flex items-center gap-2 group"
               >
-                Candidater maintenant
-                <ChevronRight className="w-4 h-4" />
+                {homepage.hero.cta_primary}
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/programme"
-                className="border border-white/40 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-serif uppercase tracking-wider text-sm"
+                className="px-8 py-4 bg-primary-foreground/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/10 transition-all backdrop-blur-md"
               >
-                Découvrir le programme
+                {homepage.hero.cta_secondary}
               </Link>
             </div>
           </div>
@@ -203,19 +131,22 @@ export default async function HomePage() {
       </section>
 
       {/* ── STATS ── */}
-      <section className="py-12 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 100} direction="up">
-                <div className="flex flex-col items-center text-center p-6 rounded-xl bg-secondary border border-border">
-                  <s.icon className="w-8 h-8 text-primary mb-3" />
-                  <span className="text-3xl font-bold text-primary font-serif">{s.value}</span>
-                  <span className="text-sm text-muted-foreground mt-1">{s.label}</span>
+      <section className="relative z-20 -mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {homepage.stats.map((stat: any, i: number) => {
+            const Icon = ({ GraduationCap, BookOpen, Users, Award } as Record<string, any>)[stat.icon] || Award
+            return (
+              <div key={i} className="bg-card border border-border p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-3xl font-serif font-bold text-foreground">{stat.value}</span>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{stat.label}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 
@@ -233,18 +164,23 @@ export default async function HomePage() {
               </p>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillars.map((p, i) => (
-              <Reveal key={p.title} delay={i * 100} direction="up">
-                <div className="group bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all h-full">
-                  <div className={`w-12 h-12 rounded-lg ${p.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <p.icon className="w-6 h-6 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {homepage.pillars.map((pillar: any, i: number) => {
+              const Icon = ({ Brain, TrendingUp, Database, Network } as Record<string, any>)[pillar.icon] || Brain
+              return (
+                <Reveal key={i} delay={i * 100} direction="up">
+                  <div className="group p-8 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all hover:shadow-lg h-full">
+                    <div className={`w-12 h-12 ${pillar.color || 'bg-primary'} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-serif font-bold text-foreground mb-4">{pillar.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">
+                      {pillar.desc}
+                    </p>
                   </div>
-                  <h3 className="font-bold text-foreground text-base mb-2 font-serif">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -293,6 +229,39 @@ export default async function HomePage() {
                 />
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MOT DU COORDONNATEUR ── */}
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-primary/5 rounded-3xl p-8 md:p-12 border border-primary/10 relative">
+            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+              <Quote className="w-32 h-32 text-primary" />
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
+              <Reveal direction="left" className="shrink-0">
+                <div className="w-48 h-48 rounded-2xl bg-primary flex items-center justify-center text-white text-5xl font-serif font-bold shadow-xl">
+                  EM
+                </div>
+              </Reveal>
+              <Reveal direction="right" delay={200}>
+                <div>
+                  <span className="text-accent text-sm font-semibold uppercase tracking-widest">Mot du Coordonnateur</span>
+                  <h2 className="font-serif text-3xl font-bold text-foreground mt-2 mb-4">Pr. ERRAIS MOHAMMED</h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg italic mb-6">
+                    &quot;Notre mission au sein du Master ISI est de former une nouvelle génération d&apos;experts capables de relever les défis de l&apos;Intelligence Artificielle. En alliant rigueur académique et immersion professionnelle, nous offrons à nos étudiants les clés de la réussite dans un monde en pleine mutation numérique.&quot;
+                  </p>
+                  <div className="flex items-center gap-4 border-t border-primary/10 pt-6">
+                    <div className="text-sm">
+                      <div className="font-bold text-foreground">Pr. ERRAIS MOHAMMED</div>
+                      <div className="text-primary font-medium">Coordonnateur du Master ISI</div>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -374,8 +343,8 @@ export default async function HomePage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {alumni.map((a, i) => (
-              <Reveal key={a.name} delay={i * 100} direction="up">
+            {alumni.map((a: any, i: number) => (
+              <Reveal key={a.id || a.name} delay={i * 100} direction="up">
                 <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all flex flex-col h-full">
                   <Quote className="w-8 h-8 text-primary/30 mb-4" />
                   <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4 italic">
@@ -417,7 +386,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── PARTNERS & SCHOLARSHIPS ── */}
       {/* ── PARTNERS ── */}
       <section className="py-16 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -432,7 +400,6 @@ export default async function HomePage() {
               </p>
             </div>
           </Reveal>
-
           <Reveal delay={200} direction="up">
             <AnimatedPartners />
           </Reveal>

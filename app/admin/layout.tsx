@@ -2,14 +2,17 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Brain, LayoutDashboard, FileText, Users, Handshake, LogOut, ExternalLink, Menu, X } from "lucide-react"
+import { Brain, LayoutDashboard, FileText, Users, Handshake, LogOut, ExternalLink, Menu, X, Link as LinkIcon, GraduationCap, Settings } from "lucide-react"
 import { useState } from "react"
 
 const navItems = [
     { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
-    { href: "/admin/articles", label: "Articles", icon: FileText },
-    { href: "/admin/enseignants", label: "Enseignants", icon: Users },
-    { href: "/admin/partenaires", label: "Partenaires", icon: Handshake },
+    { label: "Actualités", href: "/admin/articles", icon: FileText },
+    { label: "Enseignants", href: "/admin/enseignants", icon: Users },
+    { label: "Partenaires", href: "/admin/partenaires", icon: LinkIcon },
+    { label: "Alumni", href: "/admin/alumni", icon: GraduationCap },
+    { label: "Accueil", href: "/admin/homepage", icon: LayoutDashboard },
+    { label: "Paramètres", href: "/admin/contact", icon: Settings },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -64,8 +67,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
-                                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
-                                        : "text-slate-400 hover:text-white hover:bg-slate-800"
+                                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+                                    : "text-slate-400 hover:text-white hover:bg-slate-800"
                                     }`}
                             >
                                 <item.icon className="w-4 h-4 shrink-0" />

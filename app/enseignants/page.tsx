@@ -38,25 +38,14 @@ function Avatar({ name, color = "bg-primary" }: { name: string; color?: string }
   )
 }
 
-const teachers = [
-  { name: "Pr. AZBEG KEBIRA", title: "Professeure de l'Enseignement Supérieur", role: "Enseignante-chercheuse", speciality: "Systèmes Distribués", color: "bg-accent" },
-  { name: "Pr. BAHANI KHALID", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Analyse des Données", color: "bg-accent" },
-  { name: "Pr. BENABDELLAH CHAOUNI SAMIA", title: "Professeure de l'Enseignement Supérieur", role: "Enseignante-chercheuse", speciality: "Recherche Scientifique, IDM", color: "bg-accent" },
-  { name: "Pr. CHANYOUR TARIK", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Développement Full Stack", color: "bg-accent" },
-  { name: "Pr. CHBIHI LOUHDI MOHAMMED REDA", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Web Sémantique, J2EE", color: "bg-accent" },
-  { name: "Pr. CHERGUI BRAHIM", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Mathématiques des Données", color: "bg-primary" },
-  { name: "Pr. CHIBA ZOUHAIR", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Machine Learning (ML)", color: "bg-primary" },
-  { name: "Pr. DEHBI RACHID", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Bases de Données, Big Data", color: "bg-primary" },
-  { name: "Pr. EL KASMI ALAOUI MOULAY SEDDIQ", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Programmation Python", color: "bg-primary" },
-  { name: "Pr. FETJAH LAILA", title: "Professeure de l'Enseignement Supérieur", role: "Enseignante-chercheuse", speciality: "Sécurité & Hacking", color: "bg-primary" },
-  { name: "Pr. JAI ANDALOUSSI SAID", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Big Data, Multimédia", color: "bg-accent" },
-  { name: "Pr. MADRANE NABIL", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Génie Logiciel, IA", color: "bg-primary" },
-  { name: "Pr. OUASSIT YOUSSEF", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Microservices", color: "bg-accent" },
-  { name: "Pr. RAOUYANE BRAHIM", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "Réseaux, Systèmes Distribués", color: "bg-accent" },
-  { name: "Pr. SAOUDI EL MEHDI", title: "Professeur de l'Enseignement Supérieur", role: "Enseignant-chercheur", speciality: "IA Agentique", color: "bg-primary" },
-]
+async function getTeachers() {
+  const teachers = await import("@/data/teachers.json").then(m => m.default)
+  return teachers
+}
 
-export default function EnseignantsPage() {
+export default async function EnseignantsPage() {
+  const teachersData = await getTeachers()
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -70,12 +59,12 @@ export default function EnseignantsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="text-accent text-sm font-semibold uppercase tracking-widest">Corps enseignant</span>
-            <h2 className="font-serif text-3xl font-bold text-foreground mt-2">{teachers.length} enseignants-chercheurs</h2>
+            <h2 className="font-serif text-3xl font-bold text-foreground mt-2">{teachersData.length} enseignants-chercheurs</h2>
           </div>
 
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {teachers.map((t) => (
+            {teachersData.map((t: any) => (
               <div key={t.name} className="relative bg-card border border-border rounded-xl p-6 flex gap-6 hover:shadow-lg hover:border-primary/20 transition-all items-center group overflow-hidden">
                 <Avatar name={t.name.replace("Pr. ", "").replace("Mme. ", "").replace("Dr. ", "").replace("M. ", "")} color={t.color} />
                 <div className="flex-1 min-w-0">
@@ -87,7 +76,7 @@ export default function EnseignantsPage() {
 
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    {t.speciality.split(", ").map((s) => (
+                    {t.speciality.split(", ").map((s: string) => (
                       <span key={s} className="text-[10px] bg-secondary text-secondary-foreground px-2.5 py-1 rounded-full border border-border font-semibold">
                         {s}
                       </span>

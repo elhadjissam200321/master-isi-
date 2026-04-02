@@ -7,7 +7,14 @@ export const metadata = {
     'Contactez la direction du Master Ingénierie des Systèmes Intelligents à la FSAC pour vos questions sur le programme, les admissions et les bourses.',
 }
 
-export default function ContactPage() {
+async function getContactData() {
+  const contact = await import("@/data/contact.json").then(m => m.default)
+  return contact
+}
+
+export default async function ContactPage() {
+  const contact = await getContactData()
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
@@ -40,10 +47,9 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-serif font-bold text-foreground mb-2">Adresse</h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  Faculté des Sciences Aïn Chock<br />
-                  Université Hassan II de Casablanca<br />
-                  Casablanca, Maroc
+                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {contact.locationName}<br />
+                  {contact.address}
                 </p>
               </div>
 
@@ -59,13 +65,8 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-muted-foreground">
-                    <a href="tel:+212522248670" className="hover:text-primary transition-colors">
-                      +212 (5) 22 24 86 70
-                    </a>
-                  </p>
-                  <p className="text-muted-foreground">
-                    <a href="tel:+212522248671" className="hover:text-primary transition-colors">
-                      +212 (5) 22 24 86 71
+                    <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="hover:text-primary transition-colors">
+                      {contact.phone}
                     </a>
                   </p>
                 </div>
@@ -83,8 +84,8 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-muted-foreground">
-                    <a href="mailto:master.isi.pro@gmail.com" className="hover:text-primary transition-colors break-all">
-                      master.isi.pro@gmail.com
+                    <a href={`mailto:${contact.email}`} className="hover:text-primary transition-colors break-all">
+                      {contact.email}
                     </a>
                   </p>
                 </div>
@@ -100,20 +101,20 @@ export default function ContactPage() {
 
               <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-border shadow-sm">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.263842144498!2d-7.658694084798226!3d33.54542745133626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d29668f44d8b%3A0x7d6a4c28f11d13f!2sFacult%C3%A9%20des%20Sciences%20A%C3%AFn%20Chock!5e0!3m2!1sfr!2sma!4v1712060000000!5m2!1sfr!2sma"
+                  src={contact.googleMapsEmbed}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
-                  title="Localisation FSAC - Faculté des Sciences Aïn Chock"
+                  title="Localisation Master ISI - Faculté des Sciences Aïn Chock"
                   className="w-full h-full"
                 />
               </div>
 
               <div className="mt-6 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Facult%C3%A9+des+Sciences+A%C3%AFn+Chock+Casablanca"
+                  href={contact.googleMapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
@@ -125,7 +126,7 @@ export default function ContactPage() {
                   Ouvrir dans Google Maps
                 </a>
                 <a
-                  href="https://www.google.com/maps/dir//Facult%C3%A9+des+Sciences+A%C3%AFn+Chock,+Casablanca,+Morocco"
+                  href={contact.itineraryLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-card border border-border text-foreground rounded-lg font-medium hover:bg-secondary transition-colors"
@@ -145,17 +146,17 @@ export default function ContactPage() {
                 <div>
                   <p className="text-muted-foreground mb-3">
                     <span className="font-medium text-foreground">Semaine (Lundi - Jeudi)</span><br />
-                    08h00 - 17h00
+                    {contact.openingHours.week}
                   </p>
                   <p className="text-muted-foreground">
                     <span className="font-medium text-foreground">Vendredi</span><br />
-                    08h00 - 12h30 et 14h30 - 17h00
+                    {contact.openingHours.friday}
                   </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-3">
                     <span className="font-medium text-foreground">Samedi - Dimanche</span><br />
-                    Fermé
+                    {contact.openingHours.weekend}
                   </p>
                   <p className="text-muted-foreground">
                     <span className="font-medium text-foreground">Jours Fériés</span><br />
