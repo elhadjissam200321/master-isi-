@@ -61,14 +61,25 @@ export default function Navbar() {
         <nav className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-24">
-              {/* Logo */}
-              <Link href="/" className="flex items-center">
+              {/* Logo area */}
+              <Link href="/" className="flex items-center gap-4">
+                {/* FSAC Logo — desktop only */}
+                <Image
+                  src="https://fsac.univh2c.ma/front/images/FSAC%20LOGO.jpg"
+                  alt="FSAC Logo"
+                  width={64}
+                  height={64}
+                  className="hidden lg:block w-14 h-14 object-contain rounded"
+                  priority
+                />
+                {/* Separator — desktop only */}
+                <div className="hidden lg:block w-px h-10 bg-border" />
                 <Image
                   src="/logo-blue.png"
                   alt="Master ISI Logo"
                   width={180}
                   height={90}
-                  className="w-[180px] h-auto"
+                  className="w-[160px] h-auto"
                   priority
                 />
               </Link>

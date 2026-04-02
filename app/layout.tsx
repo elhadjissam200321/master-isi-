@@ -46,6 +46,22 @@ export default function RootLayout({
         <Preloader />
         {children}
         <Analytics />
+        {/* Scroll reveal observer */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                var io = new IntersectionObserver(function(entries){
+                  entries.forEach(function(e){
+                    if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+                  });
+                }, { threshold: 0.1 });
+                function init(){ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){ io.observe(el); }); }
+                if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   )

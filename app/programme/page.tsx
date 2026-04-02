@@ -45,11 +45,11 @@ const semesterModules = {
     description: "Fondamentaux et bases théoriques",
     modules: [
       { name: "Mathématiques pour l'analyse des données", prof: "Pr. CHERGUI", icon: BarChart },
-      { name: "Structure des données avancées", prof: "Pr. RAOUAYANE", icon: Code },
+      { name: "Structure des données avancées", prof: "Pr. ELKASMI", icon: Code },
       { name: "Développement web full stack", prof: "Pr. CHANYOUR", icon: Globe },
       { name: "Innovation et Intelligence Artificielle", prof: "Pr. MADRANE", icon: Brain },
       { name: "Développement avancé des bases de données", prof: "Pr. DEHBI", icon: Database },
-      { name: "Programmation Python", prof: "Pr. ELKASMI", icon: Code },
+      { name: "Programmation Python", prof: "Pr. RAOUAYANE", icon: Code },
       { name: "Anglais scientifique", prof: "FSAC", icon: BookOpen },
     ]
   },

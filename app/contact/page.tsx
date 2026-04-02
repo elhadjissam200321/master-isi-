@@ -83,12 +83,7 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-muted-foreground">
-                    <a href="mailto:mahammed.errais@gmail.com" className="hover:text-primary transition-colors break-all">
-                      mahammed.errais@gmail.com
-                    </a>
-                  </p>
-                  <p className="text-muted-foreground">
-                    <a href="mailto:master.isi.pro@gmail.com" className="hover:text-primary transition-colors">
+                    <a href="mailto:master.isi.pro@gmail.com" className="hover:text-primary transition-colors break-all">
                       master.isi.pro@gmail.com
                     </a>
                   </p>
@@ -105,7 +100,7 @@ export default function ContactPage() {
 
               <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-border shadow-sm">
                 <iframe
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-7.653%2C33.547%2C-7.660%2C33.543&layer=mapnik&marker=33.545423%2C-7.656506"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.263842144498!2d-7.658694084798226!3d33.54542745133626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d29668f44d8b%3A0x7d6a4c28f11d13f!2sFacult%C3%A9%20des%20Sciences%20A%C3%AFn%20Chock!5e0!3m2!1sfr!2sma!4v1712060000000!5m2!1sfr!2sma"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -118,7 +113,7 @@ export default function ContactPage() {
 
               <div className="mt-6 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://www.openstreetmap.org/?mlat=33.545423&mlon=-7.656506#map=17/33.54542/-7.65651"
+                  href="https://www.google.com/maps/search/?api=1&query=Facult%C3%A9+des+Sciences+A%C3%AFn+Chock+Casablanca"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
@@ -127,7 +122,7 @@ export default function ContactPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  Ouvrir dans OpenStreetMap
+                  Ouvrir dans Google Maps
                 </a>
                 <a
                   href="https://www.google.com/maps/dir//Facult%C3%A9+des+Sciences+A%C3%AFn+Chock,+Casablanca,+Morocco"
