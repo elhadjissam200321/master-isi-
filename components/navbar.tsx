@@ -62,32 +62,32 @@ export default function Navbar() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-24">
               {/* Logo area */}
-              <Link href="/" className="flex items-center gap-6 lg:gap-10">
-                {/* FSAC Logo — desktop only */}
-                <div className="hidden lg:flex items-center">
-                  <div className="relative group">
-                    <div className="absolute -inset-2 bg-primary/5 rounded-xl blur-lg transition-all group-hover:bg-primary/10" />
+              <div className="flex items-center h-full -ml-4 sm:-ml-6 lg:-ml-8">
+                <Link href="/" className="flex items-center h-full">
+                  {/* FSAC Logo — desktop only */}
+                  <div className="hidden lg:flex items-center h-full px-4 border-r border-border/40">
                     <Image
                       src="https://fsac.univh2c.ma/front/images/FSAC%20LOGO.jpg"
                       alt="FSAC Logo"
-                      width={80}
-                      height={80}
-                      className="relative w-20 h-20 object-contain rounded-xl border border-border/40 bg-white"
+                      width={100}
+                      height={100}
+                      className="h-24 w-auto object-contain brightness-100"
                       priority
                     />
                   </div>
-                </div>
-                {/* Separator — desktop only */}
-                <div className="hidden lg:block w-px h-14 bg-border/60" />
-                <Image
-                  src="/logo-blue.png"
-                  alt="Master ISI Logo"
-                  width={190}
-                  height={95}
-                  className="w-[190px] h-auto"
-                  priority
-                />
-              </Link>
+                  {/* ISI Logo — with some spacing */}
+                  <div className="px-4">
+                    <Image
+                      src="/logo-blue.png"
+                      alt="Master ISI Logo"
+                      width={180}
+                      height={90}
+                      className="w-[160px] h-auto"
+                      priority
+                    />
+                  </div>
+                </Link>
+              </div>
 
               {/* Desktop links */}
               <div className="hidden lg:flex items-center gap-1">
