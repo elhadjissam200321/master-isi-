@@ -62,24 +62,29 @@ export default function Navbar() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-24">
               {/* Logo area */}
-              <Link href="/" className="flex items-center gap-4">
+              <Link href="/" className="flex items-center gap-6 lg:gap-10">
                 {/* FSAC Logo — desktop only */}
-                <Image
-                  src="https://fsac.univh2c.ma/front/images/FSAC%20LOGO.jpg"
-                  alt="FSAC Logo"
-                  width={64}
-                  height={64}
-                  className="hidden lg:block w-14 h-14 object-contain rounded"
-                  priority
-                />
+                <div className="hidden lg:flex items-center">
+                  <div className="relative group">
+                    <div className="absolute -inset-2 bg-primary/5 rounded-xl blur-lg transition-all group-hover:bg-primary/10" />
+                    <Image
+                      src="https://fsac.univh2c.ma/front/images/FSAC%20LOGO.jpg"
+                      alt="FSAC Logo"
+                      width={80}
+                      height={80}
+                      className="relative w-20 h-20 object-contain rounded-xl border border-border/40 bg-white"
+                      priority
+                    />
+                  </div>
+                </div>
                 {/* Separator — desktop only */}
-                <div className="hidden lg:block w-px h-10 bg-border" />
+                <div className="hidden lg:block w-px h-14 bg-border/60" />
                 <Image
                   src="/logo-blue.png"
                   alt="Master ISI Logo"
-                  width={180}
-                  height={90}
-                  className="w-[160px] h-auto"
+                  width={190}
+                  height={95}
+                  className="w-[190px] h-auto"
                   priority
                 />
               </Link>
