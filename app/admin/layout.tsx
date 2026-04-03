@@ -2,15 +2,17 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Brain, LayoutDashboard, FileText, Users, Handshake, LogOut, ExternalLink, Menu, X, Link as LinkIcon, GraduationCap, Settings } from "lucide-react"
+import { Brain, LayoutDashboard, FileText, Users, Handshake, LogOut, ExternalLink, Menu, X, Link as LinkIcon, GraduationCap, Settings, BookOpen, AlertCircle } from "lucide-react"
 import { useState } from "react"
 
 const navItems = [
     { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
     { label: "Actualités", href: "/admin/articles", icon: FileText },
     { label: "Enseignants", href: "/admin/enseignants", icon: Users },
-    { label: "Partenaires", href: "/admin/partenaires", icon: LinkIcon },
+    { label: "Partenaires", href: "/admin/partenaires", icon: Handshake },
     { label: "Alumni", href: "/admin/alumni", icon: GraduationCap },
+    { label: "Programme", href: "/admin/programme", icon: BookOpen },
+    { label: "Admission", href: "/admin/admission", icon: AlertCircle },
     { label: "Accueil", href: "/admin/homepage", icon: LayoutDashboard },
     { label: "Paramètres", href: "/admin/contact", icon: Settings },
 ]

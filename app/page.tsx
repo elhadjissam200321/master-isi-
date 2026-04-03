@@ -60,22 +60,24 @@ function NeuralBg({ className = "" }: { className?: string }) {
 
 // Fetch dynamic data
 async function getHomepageData() {
-  const [homepage, alumni, partners] = await Promise.all([
+  const [homepage, alumni, partners, config] = await Promise.all([
     import("@/data/homepage.json").then(m => m.default),
     import("@/data/alumni.json").then(m => m.default),
-    import("@/data/partners.json").then(m => m.default)
+    import("@/data/partners.json").then(m => m.default),
+    import("@/data/site-config.json").then(m => m.default)
   ])
-  return { homepage, alumni, partners }
+  return { homepage, alumni, partners, config }
 }
 
 export default async function HomePage() {
   const views = await getViews()
-  const { homepage, alumni, partners } = await getHomepageData()
+  const { homepage, alumni, partners, config } = await getHomepageData()
 
   const newsWithViews = Object.values(articles).slice(0, 4).map(item => ({
     ...item,
     desc: item.excerpt,
     tag: item.category,
+    views: views[item.slug] || item.views
   }))
 
   return (
@@ -85,8 +87,8 @@ export default async function HomePage() {
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-primary">
         <Image
-          src="/images/hero-neural.jpg"
-          alt="Neural network visualization representing AI and intelligent systems"
+          src={homepage.hero.image || "/images/hero-neural.jpg"}
+          alt={homepage.hero.title}
           fill
           className="object-cover opacity-30"
           priority
@@ -103,7 +105,11 @@ export default async function HomePage() {
               {homepage.hero.title}
             </h1>
             <p className="text-white/80 text-lg leading-relaxed max-w-2xl mb-8">
-              {homepage.hero.subtitle || homepage.hero.description}
+              {homepage.hero.subtitle || (
+                <>
+                  {config.facultyName}, {config.universityName}
+                </>
+              )}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -155,12 +161,12 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
             <div className="text-center mb-12">
-              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Domaines de formation</span>
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.pillars_section.badge}</span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-                4 axes technologiques d&apos;excellence
+                {homepage.pillars.length} {homepage.pillars_section.title}
               </h2>
               <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-                Le Master ISI couvre les disciplines fondamentales des systèmes intelligents pour former des ingénieurs polyvalents et opérationnels.
+                {homepage.pillars_section.description}
               </p>
             </div>
           </Reveal>
@@ -191,29 +197,28 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <Reveal direction="left">
               <div>
-                <span className="text-accent text-sm font-semibold uppercase tracking-widest">Pourquoi nous choisir</span>
+                <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.why_isi.badge}</span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 mb-6 text-balance">
-                  Une formation d&apos;excellence ancrée dans le monde professionnel
+                  {homepage.why_isi.title}
                 </h2>
                 <div className="space-y-4">
-                  {[
-                    { icon: Users, text: "Accompagnement personnalisé par des experts et académiciens" },
-                    { icon: Target, text: "Curriculum aligné sur les besoins actuels du marché de l'IA" },
-                    { icon: Cpu, text: "Projets réels avec des entreprises tech partenaires de Casablanca" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4">
-                      <div className="mt-1 bg-primary/10 p-2 rounded-full">
-                        <item.icon className="w-5 h-5 text-primary" />
+                  {homepage.why_isi.points.map((item: any, i: number) => {
+                    const Icon = ({ Users, Target, Cpu } as Record<string, any>)[item.icon] || Target
+                    return (
+                      <div key={i} className="flex items-start gap-4">
+                        <div className="mt-1 bg-primary/10 p-2 rounded-full">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed italic">{item.text}</p>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed italic">{item.text}</p>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
                 <Link
                   href="/programme"
                   className="inline-flex items-center gap-2 mt-8 bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm font-serif uppercase tracking-wider"
                 >
-                  Voir le programme complet
+                  {homepage.why_isi.cta}
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -221,8 +226,8 @@ export default async function HomePage() {
             <Reveal direction="right" delay={200}>
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl border border-primary/20">
                 <Image
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
-                  alt="Étudiants en collaboration"
+                  src={homepage.why_isi.image}
+                  alt={homepage.why_isi.title}
                   width={800}
                   height={500}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -243,20 +248,20 @@ export default async function HomePage() {
             <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
               <Reveal direction="left" className="shrink-0">
                 <div className="w-48 h-48 rounded-2xl bg-primary flex items-center justify-center text-white text-5xl font-serif font-bold shadow-xl">
-                  EM
+                  {homepage.coordinator.initials}
                 </div>
               </Reveal>
               <Reveal direction="right" delay={200}>
                 <div>
-                  <span className="text-accent text-sm font-semibold uppercase tracking-widest">Mot du Coordonnateur</span>
-                  <h2 className="font-serif text-3xl font-bold text-foreground mt-2 mb-4">Pr. ERRAIS MOHAMMED</h2>
+                  <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.coordinator.badge}</span>
+                  <h2 className="font-serif text-3xl font-bold text-foreground mt-2 mb-4">{homepage.coordinator.name}</h2>
                   <p className="text-muted-foreground leading-relaxed text-lg italic mb-6">
-                    &quot;Notre mission au sein du Master ISI est de former une nouvelle génération d&apos;experts capables de relever les défis de l&apos;Intelligence Artificielle. En alliant rigueur académique et immersion professionnelle, nous offrons à nos étudiants les clés de la réussite dans un monde en pleine mutation numérique.&quot;
+                    &quot;{homepage.coordinator.message}&quot;
                   </p>
                   <div className="flex items-center gap-4 border-t border-primary/10 pt-6">
                     <div className="text-sm">
-                      <div className="font-bold text-foreground">Pr. ERRAIS MOHAMMED</div>
-                      <div className="text-primary font-medium">Coordonnateur du Master ISI</div>
+                      <div className="font-bold text-foreground">{homepage.coordinator.name}</div>
+                      <div className="text-primary font-medium">{homepage.coordinator.title}</div>
                     </div>
                   </div>
                 </div>
@@ -271,11 +276,11 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Actualités</span>
-              <h2 className="font-serif text-3xl font-bold text-foreground mt-2">Dernières nouvelles</h2>
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.news_section.badge}</span>
+              <h2 className="font-serif text-3xl font-bold text-foreground mt-2">{homepage.news_section.title}</h2>
             </div>
             <Link href="/actualites" className="text-sm text-primary font-medium hover:underline flex items-center gap-1">
-              Toutes les actus <ChevronRight className="w-4 h-4" />
+              {homepage.news_section.cta} <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -333,12 +338,12 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
             <div className="text-center mb-12">
-              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Témoignages</span>
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.alumni_section.badge}</span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-                Nos alumni parlent de nous
+                {homepage.alumni_section.title}
               </h2>
               <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-                Découvrez les parcours réussis de nos anciens étudiants intégrés dans les meilleures entreprises.
+                {homepage.alumni_section.description}
               </p>
             </div>
           </Reveal>
@@ -380,7 +385,7 @@ export default async function HomePage() {
               href="/alumni"
               className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm uppercase tracking-wider"
             >
-              Voir tous les témoignages <ChevronRight className="w-4 h-4" />
+              {homepage.alumni_section.cta} <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -391,12 +396,12 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
             <div className="text-center mb-12">
-              <span className="text-accent text-sm font-semibold uppercase tracking-widest">Partenariats</span>
+              <span className="text-accent text-sm font-semibold uppercase tracking-widest">{homepage.partners_section.badge}</span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mt-2 text-balance">
-                Nos partenaires industriels
+                {homepage.partners_section.title}
               </h2>
               <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
-                Le Master ISI bénéficie du soutien d&apos;entreprises et d&apos;organisations de premier plan.
+                {homepage.partners_section.description}
               </p>
             </div>
           </Reveal>
@@ -410,24 +415,24 @@ export default async function HomePage() {
       <section className="bg-primary py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-3xl font-bold text-white mb-4 text-balance">
-            Rejoignez la prochaine promotion du Master ISI
+            {homepage.cta_band.title}
           </h2>
           <p className="text-white/70 mb-8 max-w-xl mx-auto leading-relaxed">
-            Les candidatures pour l&apos;année universitaire 2025-2026 sont ouvertes. Déposez votre dossier avant la date limite.
+            {homepage.cta_band.description}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/admission"
               className="bg-white text-primary font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 font-serif uppercase tracking-wider text-sm"
             >
-              Déposer ma candidature
+              {homepage.cta_band.cta_primary}
               <ChevronRight className="w-4 h-4" />
             </Link>
             <Link
               href="/contact"
               className="border border-white/40 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-serif uppercase tracking-wider text-sm"
             >
-              Nous contacter
+              {homepage.cta_band.cta_secondary}
             </Link>
           </div>
         </div>

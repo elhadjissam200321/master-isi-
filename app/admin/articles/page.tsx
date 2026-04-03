@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react"
 import { Plus, Pencil, Trash2, X, Save, Loader2, Search } from "lucide-react"
+import { ImageUpload } from "@/components/admin/image-upload"
 
 interface Article {
     id: number
@@ -180,9 +181,11 @@ export default function ArticlesAdminPage() {
                                         className="w-full bg-slate-900 border border-slate-600 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition" />
                                 </div>
                                 <div className="sm:col-span-2">
-                                    <label className="block text-xs text-slate-400 mb-1.5">Image (URL)</label>
-                                    <input value={form.image || ""} onChange={e => setForm(f => ({ ...f!, image: e.target.value }))}
-                                        className="w-full bg-slate-900 border border-slate-600 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition" />
+                                    <ImageUpload
+                                        label="Image de l'article"
+                                        value={form.image || ""}
+                                        onChange={url => setForm(f => ({ ...f!, image: url }))}
+                                    />
                                 </div>
                                 <div className="sm:col-span-2">
                                     <label className="block text-xs text-slate-400 mb-1.5">Extrait</label>

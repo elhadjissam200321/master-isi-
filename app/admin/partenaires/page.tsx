@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { Plus, Trash2, X, Save, Loader2, Image as ImageIcon } from "lucide-react"
 import Image from "next/image"
+import { ImageUpload } from "@/components/admin/image-upload"
 
 interface Partner {
     id: number
@@ -105,16 +106,12 @@ export default function PartenairesAdminPage() {
                                     placeholder="Ex: Oracle" />
                             </div>
                             <div>
-                                <label className="block text-xs text-slate-400 mb-1.5">URL du logo *</label>
-                                <input value={form.logo} onChange={e => setForm(f => ({ ...f!, logo: e.target.value }))}
-                                    className="w-full bg-slate-900 border border-slate-600 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition"
-                                    placeholder="/images/partners/logo.png" />
+                                <ImageUpload
+                                    label="Logo du partenaire"
+                                    value={form.logo}
+                                    onChange={url => setForm(f => ({ ...f!, logo: url }))}
+                                />
                             </div>
-                            {form.logo && (
-                                <div className="bg-slate-900 rounded-xl p-3 flex items-center justify-center h-20">
-                                    <Image src={form.logo} alt="preview" width={120} height={60} className="object-contain max-h-14" onError={() => { }} />
-                                </div>
-                            )}
                         </div>
                         <div className="p-5 border-t border-slate-700 flex items-center justify-end gap-3">
                             <button onClick={() => setForm(null)} className="px-4 py-2 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-slate-700 transition">Annuler</button>

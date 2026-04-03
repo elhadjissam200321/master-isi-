@@ -2,16 +2,10 @@ import Link from "next/link"
 import { MapPin, Phone, Mail, Printer, ExternalLink } from "lucide-react"
 import Image from "next/image"
 
-async function getFooterData() {
-  const [config, contact] = await Promise.all([
-    import("@/data/site-config.json").then(m => m.default),
-    import("@/data/contact.json").then(m => m.default)
-  ])
-  return { config, contact }
-}
+import config from "@/data/site-config.json"
+import contact from "@/data/contact.json"
 
-export async function Footer() {
-  const { config, contact } = await getFooterData()
+export function Footer() {
 
   return (
     <footer className="bg-primary text-primary-foreground">
